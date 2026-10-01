@@ -1,1 +1,4 @@
-resource "aws_db_instance" "customer" { publicly_accessible = false storage_encrypted = true }
+resource "aws_s3_bucket" "s34" {
+  bucket = "cloudguard-s34"
+  acl = "private"
+}

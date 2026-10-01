@@ -17,4 +17,4 @@ if __name__ == "__main__":
     run("run_cloudguard.py")
     run("calculate_metrics.py")
     run("write_results_summary.py")
-    print("Reproduction complete. Results are a 12-manifest sanity run, not conference evidence.")
+    print("Reproduction complete. Results are a 50-manifest synthetic mutation run, not general conference evidence.")

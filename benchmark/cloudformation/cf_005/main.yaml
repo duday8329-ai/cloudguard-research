@@ -1,5 +1,6 @@
+AWSTemplateFormatVersion: '2010-09-09'
 Resources:
-  Artifacts:
+  s35:
     Type: AWS::S3::Bucket
     Properties:
-      AccessControl: PublicRead
+      AccessControl: Private

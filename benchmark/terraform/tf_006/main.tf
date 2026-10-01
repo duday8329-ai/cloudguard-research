@@ -1,1 +1,10 @@
-resource "aws_security_group" "web" { ingress { from_port = 443 to_port = 443 cidr_blocks = ["10.0.0.0/8"] } }
+resource "aws_db_instance" "rdspublic1" {
+  allocated_storage = 20
+  engine = "postgres"
+  instance_class = "db.t3.micro"
+  username = "admin"
+  password = "change-me-for-test-only"
+  skip_final_snapshot = true
+  publicly_accessible = true
+  storage_encrypted = true
+}

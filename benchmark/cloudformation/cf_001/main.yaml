@@ -1,5 +1,6 @@
+AWSTemplateFormatVersion: '2010-09-09'
 Resources:
-  AppPolicy:
-    Type: AWS::IAM::Policy
+  s31:
+    Type: AWS::S3::Bucket
     Properties:
-      PolicyDocument: {"Statement": [{"Effect": "Allow", "Action": "*", "Resource": "*"}]}
+      AccessControl: PublicRead

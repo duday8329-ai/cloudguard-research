@@ -14,7 +14,7 @@ RULES = {
     "POL_AWS_S3_PUBLIC": re.compile(r"public-read|publicread|public-write|accesscontrol:\s*publicread", re.I),
     "POL_AWS_RDS_PUBLIC": re.compile(r"publicly_accessible\s*=\s*true|publiclyaccessible:\s*true", re.I),
     "POL_AWS_SG_UNRESTRICTED": re.compile(r"0\.0\.0\.0/0", re.I),
-    "POL_AWS_IAM_WILDCARD": re.compile(r'"action"\s*:\s*"\*"|action\s*=\s*"\*"', re.I),
+    "POL_AWS_IAM_WILDCARD": re.compile(r'"action"\s*:\s*"\*"|action\s*=\s*"\*"|action\s*:\s*[\'\"]?\*[\'\"]?', re.I),
     "POL_AWS_RDS_ENCRYPTION": re.compile(r"storage_encrypted\s*=\s*false|storageencrypted:\s*false", re.I),
 }
 
