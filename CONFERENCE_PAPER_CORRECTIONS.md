@@ -12,7 +12,7 @@ fact solely to reproduce those claimed numbers.
 
 ## Safe replacement text
 
-> The CloudGuard reproducibility companion is available at https://github.com/duday8329-ai/cloudguard-research. It currently provides a versioned 12-manifest project-team sanity benchmark, policy-instance ground truth, and scripts that generate the included CloudGuard confusion matrix. Broader comparative, ranking, remediation, latency, and independent human-annotation results are reported only after their underlying raw data is available.
+> The CloudGuard reproducibility companion is available at https://github.com/duday8329-ai/cloudguard-research. It currently provides a versioned 50-manifest project-team synthetic mutation benchmark, policy-instance ground truth, a CloudGuard confusion matrix, a local latency measurement, and a retained raw Trivy scan with unresolved semantic mappings. Broader comparative, ranking, remediation, and independent human-annotation results are reported only after their underlying raw data is available.
 
 ## Honest current method statement
 

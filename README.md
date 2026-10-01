@@ -7,12 +7,12 @@ Repository URL: https://github.com/duday8329-ai/cloudguard-research
 
 ## Evidence status
 
-The included benchmark is a **12-manifest project-team sanity benchmark**. It
-contains 16 labelled policy-instance pairs and is useful for verifying that the
-data format and metric pipeline work end to end. It is not a replacement for a
-conference evaluation. Do not claim that it is independently annotated, that it
-contains 120 manifests, or that it supports comparisons with Checkov, KICS, or
-Trivy until those activities have actually been completed.
+The included benchmark is a **50-manifest project-team synthetic mutation
+benchmark** containing 70 labelled policy-instance pairs. It is a reproducible
+engineering evaluation of the current prototype, not a claim of independent
+conference evidence. The repository records unavailable experiments explicitly;
+it does not invent expert annotation, baseline output, ranking judgments, or
+remediation success.
 
 ## Reproduce the included sanity run
 
@@ -21,18 +21,22 @@ python scripts/bootstrap_benchmark.py
 python scripts/reproduce_all.py
 ```
 
-This creates the sample manifests, labels, CloudGuard predictions, and a
-confusion matrix at `results/cloudguard/metrics.json`. The scripts only use the
-Python standard library.
+This creates the benchmark, labels, CloudGuard predictions, confusion matrix,
+package validation report, and measured CloudGuard latency artifact. The
+scripts only use the Python standard library.
 
 ## Repository layout
 
 - `benchmark/` contains the versioned Terraform and CloudFormation cases.
 - `annotations/` records the annotation protocol and consensus labels.
 - `mappings/` maps CloudGuard policy SIDs to comparable concepts.
-- `experiments/` describes the future conference-study protocol.
+- `experiments/` describes the conference-study protocol and raw-data schemas.
 - `results/` contains generated artefacts and must never be hand-edited.
 - `scripts/` regenerates benchmark outputs and metrics.
+
+Read `CONFERENCE_METHODS.md` for the paper-ready methodology and
+`EVIDENCE_MATRIX.md` for the exact boundary between measured evidence and
+experiments that still require human or external-tool execution.
 
 ## Before conference submission
 

@@ -16,5 +16,7 @@ if __name__ == "__main__":
     run("bootstrap_benchmark.py")
     run("run_cloudguard.py")
     run("calculate_metrics.py")
+    run("validate_package.py")
+    run("run_latency.py")
     run("write_results_summary.py")
     print("Reproduction complete. Results are a 50-manifest synthetic mutation run, not general conference evidence.")

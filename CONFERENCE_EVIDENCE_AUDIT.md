@@ -19,14 +19,15 @@ in this repository.
 
 | Item | Actual value | Status |
 |---|---:|---|
-| AWS IaC manifests | 12 | Project-team sanity benchmark |
-| Terraform manifests | 6 | Project-team sanity benchmark |
-| CloudFormation manifests | 6 | Project-team sanity benchmark |
-| Labelled policy-instance pairs | 16 | Project-team labels, not independent expert labels |
-| Known positive policy instances | 6 | Project-team sanity benchmark |
+| AWS IaC manifests | 50 | Project-team synthetic mutation benchmark |
+| Terraform manifests | 25 | Project-team synthetic mutation benchmark |
+| CloudFormation manifests | 25 | Project-team synthetic mutation benchmark |
+| Labelled policy-instance pairs | 70 | Project-team labels, not independent expert labels |
+| Known positive policy instances | 30 | Project-team synthetic mutation benchmark |
 | CloudGuard TP / FP / FN / TN | 6 / 0 / 0 / 10 | Generated from raw predictions and labels |
 | CloudGuard precision / recall / F1 | 1.0000 / 1.0000 / 1.0000 | Sanity check only; do not use in conference tables |
-| Checkov, KICS, Trivy runs | 0 | Not installed or executed |
+| Checkov, KICS runs | 0 | Unavailable in the current environment |
+| Trivy run | 1 raw scan | Version 0.74.0; semantic SID mapping pending |
 | Independent annotators / Cohen's kappa | 0 / not available | Do not claim |
 | Ranking relevance labels / NDCG | 0 / not available | Do not claim |
 | Automated remediation trials / Gate 1 / Gate 2 | 0 / 0 / 0 | Do not claim |
@@ -72,7 +73,7 @@ Retitle and scope the paper around the implemented system, for example:
 > for AWS Infrastructure as Code
 
 State that CloudGuard currently produces remediation guidance, not verified
-automated repair. Report the 12-manifest run only as an implementation sanity
+automated repair. Report the 50-manifest run only as an implementation sanity
 check, or omit its 1.0000 values from the paper entirely. The conference paper
 should contain measured comparative values only after the next experiment.
 

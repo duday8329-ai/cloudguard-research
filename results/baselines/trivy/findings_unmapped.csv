@@ -1,0 +1,200 @@
+target,check_id,severity,title,status,policy_sid,mapping_status
+cloudformation/cf_001/main.yaml,AWS-0086,HIGH,S3 Access block should block public ACL,FAIL,,pending_validation
+cloudformation/cf_001/main.yaml,AWS-0087,HIGH,S3 Access block should block public policy,FAIL,,pending_validation
+cloudformation/cf_001/main.yaml,AWS-0089,LOW,S3 Bucket Logging,FAIL,,pending_validation
+cloudformation/cf_001/main.yaml,AWS-0090,MEDIUM,S3 Data should be versioned,FAIL,,pending_validation
+cloudformation/cf_001/main.yaml,AWS-0091,HIGH,S3 Access Block should Ignore Public ACL,FAIL,,pending_validation
+cloudformation/cf_001/main.yaml,AWS-0092,HIGH,S3 Buckets not publicly accessible through ACL.,FAIL,,pending_validation
+cloudformation/cf_001/main.yaml,AWS-0093,HIGH,S3 Access block should restrict public bucket to limit access,FAIL,,pending_validation
+cloudformation/cf_001/main.yaml,AWS-0094,LOW,S3 buckets should each define an aws_s3_bucket_public_access_block,FAIL,,pending_validation
+cloudformation/cf_001/main.yaml,AWS-0132,HIGH,S3 encryption should use Customer Managed Keys,FAIL,,pending_validation
+cloudformation/cf_002/main.yaml,AWS-0086,HIGH,S3 Access block should block public ACL,FAIL,,pending_validation
+cloudformation/cf_002/main.yaml,AWS-0087,HIGH,S3 Access block should block public policy,FAIL,,pending_validation
+cloudformation/cf_002/main.yaml,AWS-0089,LOW,S3 Bucket Logging,FAIL,,pending_validation
+cloudformation/cf_002/main.yaml,AWS-0090,MEDIUM,S3 Data should be versioned,FAIL,,pending_validation
+cloudformation/cf_002/main.yaml,AWS-0091,HIGH,S3 Access Block should Ignore Public ACL,FAIL,,pending_validation
+cloudformation/cf_002/main.yaml,AWS-0092,HIGH,S3 Buckets not publicly accessible through ACL.,FAIL,,pending_validation
+cloudformation/cf_002/main.yaml,AWS-0093,HIGH,S3 Access block should restrict public bucket to limit access,FAIL,,pending_validation
+cloudformation/cf_002/main.yaml,AWS-0094,LOW,S3 buckets should each define an aws_s3_bucket_public_access_block,FAIL,,pending_validation
+cloudformation/cf_002/main.yaml,AWS-0132,HIGH,S3 encryption should use Customer Managed Keys,FAIL,,pending_validation
+cloudformation/cf_003/main.yaml,AWS-0086,HIGH,S3 Access block should block public ACL,FAIL,,pending_validation
+cloudformation/cf_003/main.yaml,AWS-0087,HIGH,S3 Access block should block public policy,FAIL,,pending_validation
+cloudformation/cf_003/main.yaml,AWS-0089,LOW,S3 Bucket Logging,FAIL,,pending_validation
+cloudformation/cf_003/main.yaml,AWS-0090,MEDIUM,S3 Data should be versioned,FAIL,,pending_validation
+cloudformation/cf_003/main.yaml,AWS-0091,HIGH,S3 Access Block should Ignore Public ACL,FAIL,,pending_validation
+cloudformation/cf_003/main.yaml,AWS-0092,HIGH,S3 Buckets not publicly accessible through ACL.,FAIL,,pending_validation
+cloudformation/cf_003/main.yaml,AWS-0093,HIGH,S3 Access block should restrict public bucket to limit access,FAIL,,pending_validation
+cloudformation/cf_003/main.yaml,AWS-0094,LOW,S3 buckets should each define an aws_s3_bucket_public_access_block,FAIL,,pending_validation
+cloudformation/cf_003/main.yaml,AWS-0132,HIGH,S3 encryption should use Customer Managed Keys,FAIL,,pending_validation
+cloudformation/cf_004/main.yaml,AWS-0086,HIGH,S3 Access block should block public ACL,FAIL,,pending_validation
+cloudformation/cf_004/main.yaml,AWS-0087,HIGH,S3 Access block should block public policy,FAIL,,pending_validation
+cloudformation/cf_004/main.yaml,AWS-0089,LOW,S3 Bucket Logging,FAIL,,pending_validation
+cloudformation/cf_004/main.yaml,AWS-0090,MEDIUM,S3 Data should be versioned,FAIL,,pending_validation
+cloudformation/cf_004/main.yaml,AWS-0091,HIGH,S3 Access Block should Ignore Public ACL,FAIL,,pending_validation
+cloudformation/cf_004/main.yaml,AWS-0093,HIGH,S3 Access block should restrict public bucket to limit access,FAIL,,pending_validation
+cloudformation/cf_004/main.yaml,AWS-0094,LOW,S3 buckets should each define an aws_s3_bucket_public_access_block,FAIL,,pending_validation
+cloudformation/cf_004/main.yaml,AWS-0132,HIGH,S3 encryption should use Customer Managed Keys,FAIL,,pending_validation
+cloudformation/cf_005/main.yaml,AWS-0086,HIGH,S3 Access block should block public ACL,FAIL,,pending_validation
+cloudformation/cf_005/main.yaml,AWS-0087,HIGH,S3 Access block should block public policy,FAIL,,pending_validation
+cloudformation/cf_005/main.yaml,AWS-0089,LOW,S3 Bucket Logging,FAIL,,pending_validation
+cloudformation/cf_005/main.yaml,AWS-0090,MEDIUM,S3 Data should be versioned,FAIL,,pending_validation
+cloudformation/cf_005/main.yaml,AWS-0091,HIGH,S3 Access Block should Ignore Public ACL,FAIL,,pending_validation
+cloudformation/cf_005/main.yaml,AWS-0093,HIGH,S3 Access block should restrict public bucket to limit access,FAIL,,pending_validation
+cloudformation/cf_005/main.yaml,AWS-0094,LOW,S3 buckets should each define an aws_s3_bucket_public_access_block,FAIL,,pending_validation
+cloudformation/cf_005/main.yaml,AWS-0132,HIGH,S3 encryption should use Customer Managed Keys,FAIL,,pending_validation
+cloudformation/cf_006/main.yaml,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+cloudformation/cf_006/main.yaml,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+cloudformation/cf_006/main.yaml,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+cloudformation/cf_006/main.yaml,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+cloudformation/cf_006/main.yaml,AWS-0180,HIGH,RDS Publicly Accessible,FAIL,,pending_validation
+cloudformation/cf_007/main.yaml,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+cloudformation/cf_007/main.yaml,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+cloudformation/cf_007/main.yaml,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+cloudformation/cf_007/main.yaml,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+cloudformation/cf_007/main.yaml,AWS-0180,HIGH,RDS Publicly Accessible,FAIL,,pending_validation
+cloudformation/cf_008/main.yaml,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+cloudformation/cf_008/main.yaml,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+cloudformation/cf_008/main.yaml,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+cloudformation/cf_008/main.yaml,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+cloudformation/cf_008/main.yaml,AWS-0180,HIGH,RDS Publicly Accessible,FAIL,,pending_validation
+cloudformation/cf_009/main.yaml,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+cloudformation/cf_009/main.yaml,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+cloudformation/cf_009/main.yaml,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+cloudformation/cf_009/main.yaml,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+cloudformation/cf_010/main.yaml,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+cloudformation/cf_010/main.yaml,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+cloudformation/cf_010/main.yaml,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+cloudformation/cf_010/main.yaml,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+cloudformation/cf_011/main.yaml,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+cloudformation/cf_011/main.yaml,AWS-0080,HIGH,RDS encryption has not been enabled at a DB Instance level.,FAIL,,pending_validation
+cloudformation/cf_011/main.yaml,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+cloudformation/cf_011/main.yaml,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+cloudformation/cf_011/main.yaml,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+cloudformation/cf_012/main.yaml,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+cloudformation/cf_012/main.yaml,AWS-0080,HIGH,RDS encryption has not been enabled at a DB Instance level.,FAIL,,pending_validation
+cloudformation/cf_012/main.yaml,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+cloudformation/cf_012/main.yaml,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+cloudformation/cf_012/main.yaml,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+cloudformation/cf_013/main.yaml,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+cloudformation/cf_013/main.yaml,AWS-0080,HIGH,RDS encryption has not been enabled at a DB Instance level.,FAIL,,pending_validation
+cloudformation/cf_013/main.yaml,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+cloudformation/cf_013/main.yaml,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+cloudformation/cf_013/main.yaml,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+cloudformation/cf_014/main.yaml,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+cloudformation/cf_014/main.yaml,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+cloudformation/cf_014/main.yaml,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+cloudformation/cf_014/main.yaml,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+cloudformation/cf_015/main.yaml,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+cloudformation/cf_015/main.yaml,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+cloudformation/cf_015/main.yaml,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+cloudformation/cf_015/main.yaml,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+cloudformation/cf_016/main.yaml,AWS-0107,HIGH,Security groups should not allow unrestricted ingress to SSH or RDP from any IP address.,FAIL,,pending_validation
+cloudformation/cf_016/main.yaml,AWS-0124,LOW,Missing description for security group rule.,FAIL,,pending_validation
+cloudformation/cf_017/main.yaml,AWS-0107,HIGH,Security groups should not allow unrestricted ingress to SSH or RDP from any IP address.,FAIL,,pending_validation
+cloudformation/cf_017/main.yaml,AWS-0124,LOW,Missing description for security group rule.,FAIL,,pending_validation
+cloudformation/cf_018/main.yaml,AWS-0107,HIGH,Security groups should not allow unrestricted ingress to SSH or RDP from any IP address.,FAIL,,pending_validation
+cloudformation/cf_018/main.yaml,AWS-0124,LOW,Missing description for security group rule.,FAIL,,pending_validation
+cloudformation/cf_019/main.yaml,AWS-0124,LOW,Missing description for security group rule.,FAIL,,pending_validation
+cloudformation/cf_020/main.yaml,AWS-0124,LOW,Missing description for security group rule.,FAIL,,pending_validation
+terraform/tf_001/main.tf,AWS-0086,HIGH,S3 Access block should block public ACL,FAIL,,pending_validation
+terraform/tf_001/main.tf,AWS-0087,HIGH,S3 Access block should block public policy,FAIL,,pending_validation
+terraform/tf_001/main.tf,AWS-0089,LOW,S3 Bucket Logging,FAIL,,pending_validation
+terraform/tf_001/main.tf,AWS-0090,MEDIUM,S3 Data should be versioned,FAIL,,pending_validation
+terraform/tf_001/main.tf,AWS-0091,HIGH,S3 Access Block should Ignore Public ACL,FAIL,,pending_validation
+terraform/tf_001/main.tf,AWS-0092,HIGH,S3 Buckets not publicly accessible through ACL.,FAIL,,pending_validation
+terraform/tf_001/main.tf,AWS-0093,HIGH,S3 Access block should restrict public bucket to limit access,FAIL,,pending_validation
+terraform/tf_001/main.tf,AWS-0094,LOW,S3 buckets should each define an aws_s3_bucket_public_access_block,FAIL,,pending_validation
+terraform/tf_001/main.tf,AWS-0132,HIGH,S3 encryption should use Customer Managed Keys,FAIL,,pending_validation
+terraform/tf_002/main.tf,AWS-0086,HIGH,S3 Access block should block public ACL,FAIL,,pending_validation
+terraform/tf_002/main.tf,AWS-0087,HIGH,S3 Access block should block public policy,FAIL,,pending_validation
+terraform/tf_002/main.tf,AWS-0089,LOW,S3 Bucket Logging,FAIL,,pending_validation
+terraform/tf_002/main.tf,AWS-0090,MEDIUM,S3 Data should be versioned,FAIL,,pending_validation
+terraform/tf_002/main.tf,AWS-0091,HIGH,S3 Access Block should Ignore Public ACL,FAIL,,pending_validation
+terraform/tf_002/main.tf,AWS-0092,HIGH,S3 Buckets not publicly accessible through ACL.,FAIL,,pending_validation
+terraform/tf_002/main.tf,AWS-0093,HIGH,S3 Access block should restrict public bucket to limit access,FAIL,,pending_validation
+terraform/tf_002/main.tf,AWS-0094,LOW,S3 buckets should each define an aws_s3_bucket_public_access_block,FAIL,,pending_validation
+terraform/tf_002/main.tf,AWS-0132,HIGH,S3 encryption should use Customer Managed Keys,FAIL,,pending_validation
+terraform/tf_003/main.tf,AWS-0086,HIGH,S3 Access block should block public ACL,FAIL,,pending_validation
+terraform/tf_003/main.tf,AWS-0087,HIGH,S3 Access block should block public policy,FAIL,,pending_validation
+terraform/tf_003/main.tf,AWS-0089,LOW,S3 Bucket Logging,FAIL,,pending_validation
+terraform/tf_003/main.tf,AWS-0090,MEDIUM,S3 Data should be versioned,FAIL,,pending_validation
+terraform/tf_003/main.tf,AWS-0091,HIGH,S3 Access Block should Ignore Public ACL,FAIL,,pending_validation
+terraform/tf_003/main.tf,AWS-0092,HIGH,S3 Buckets not publicly accessible through ACL.,FAIL,,pending_validation
+terraform/tf_003/main.tf,AWS-0093,HIGH,S3 Access block should restrict public bucket to limit access,FAIL,,pending_validation
+terraform/tf_003/main.tf,AWS-0094,LOW,S3 buckets should each define an aws_s3_bucket_public_access_block,FAIL,,pending_validation
+terraform/tf_003/main.tf,AWS-0132,HIGH,S3 encryption should use Customer Managed Keys,FAIL,,pending_validation
+terraform/tf_004/main.tf,AWS-0086,HIGH,S3 Access block should block public ACL,FAIL,,pending_validation
+terraform/tf_004/main.tf,AWS-0087,HIGH,S3 Access block should block public policy,FAIL,,pending_validation
+terraform/tf_004/main.tf,AWS-0089,LOW,S3 Bucket Logging,FAIL,,pending_validation
+terraform/tf_004/main.tf,AWS-0090,MEDIUM,S3 Data should be versioned,FAIL,,pending_validation
+terraform/tf_004/main.tf,AWS-0091,HIGH,S3 Access Block should Ignore Public ACL,FAIL,,pending_validation
+terraform/tf_004/main.tf,AWS-0093,HIGH,S3 Access block should restrict public bucket to limit access,FAIL,,pending_validation
+terraform/tf_004/main.tf,AWS-0094,LOW,S3 buckets should each define an aws_s3_bucket_public_access_block,FAIL,,pending_validation
+terraform/tf_004/main.tf,AWS-0132,HIGH,S3 encryption should use Customer Managed Keys,FAIL,,pending_validation
+terraform/tf_005/main.tf,AWS-0086,HIGH,S3 Access block should block public ACL,FAIL,,pending_validation
+terraform/tf_005/main.tf,AWS-0087,HIGH,S3 Access block should block public policy,FAIL,,pending_validation
+terraform/tf_005/main.tf,AWS-0089,LOW,S3 Bucket Logging,FAIL,,pending_validation
+terraform/tf_005/main.tf,AWS-0090,MEDIUM,S3 Data should be versioned,FAIL,,pending_validation
+terraform/tf_005/main.tf,AWS-0091,HIGH,S3 Access Block should Ignore Public ACL,FAIL,,pending_validation
+terraform/tf_005/main.tf,AWS-0093,HIGH,S3 Access block should restrict public bucket to limit access,FAIL,,pending_validation
+terraform/tf_005/main.tf,AWS-0094,LOW,S3 buckets should each define an aws_s3_bucket_public_access_block,FAIL,,pending_validation
+terraform/tf_005/main.tf,AWS-0132,HIGH,S3 encryption should use Customer Managed Keys,FAIL,,pending_validation
+terraform/tf_006/main.tf,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+terraform/tf_006/main.tf,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+terraform/tf_006/main.tf,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+terraform/tf_006/main.tf,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+terraform/tf_006/main.tf,AWS-0180,HIGH,RDS Publicly Accessible,FAIL,,pending_validation
+terraform/tf_007/main.tf,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+terraform/tf_007/main.tf,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+terraform/tf_007/main.tf,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+terraform/tf_007/main.tf,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+terraform/tf_007/main.tf,AWS-0180,HIGH,RDS Publicly Accessible,FAIL,,pending_validation
+terraform/tf_008/main.tf,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+terraform/tf_008/main.tf,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+terraform/tf_008/main.tf,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+terraform/tf_008/main.tf,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+terraform/tf_008/main.tf,AWS-0180,HIGH,RDS Publicly Accessible,FAIL,,pending_validation
+terraform/tf_009/main.tf,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+terraform/tf_009/main.tf,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+terraform/tf_009/main.tf,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+terraform/tf_009/main.tf,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+terraform/tf_010/main.tf,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+terraform/tf_010/main.tf,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+terraform/tf_010/main.tf,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+terraform/tf_010/main.tf,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+terraform/tf_011/main.tf,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+terraform/tf_011/main.tf,AWS-0080,HIGH,RDS encryption has not been enabled at a DB Instance level.,FAIL,,pending_validation
+terraform/tf_011/main.tf,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+terraform/tf_011/main.tf,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+terraform/tf_011/main.tf,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+terraform/tf_012/main.tf,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+terraform/tf_012/main.tf,AWS-0080,HIGH,RDS encryption has not been enabled at a DB Instance level.,FAIL,,pending_validation
+terraform/tf_012/main.tf,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+terraform/tf_012/main.tf,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+terraform/tf_012/main.tf,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+terraform/tf_013/main.tf,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+terraform/tf_013/main.tf,AWS-0080,HIGH,RDS encryption has not been enabled at a DB Instance level.,FAIL,,pending_validation
+terraform/tf_013/main.tf,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+terraform/tf_013/main.tf,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+terraform/tf_013/main.tf,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+terraform/tf_014/main.tf,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+terraform/tf_014/main.tf,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+terraform/tf_014/main.tf,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+terraform/tf_014/main.tf,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+terraform/tf_015/main.tf,AWS-0077,MEDIUM,RDS Cluster and RDS instance should have backup retention longer than default 1 day,FAIL,,pending_validation
+terraform/tf_015/main.tf,AWS-0133,LOW,Enable Performance Insights to detect potential problems,FAIL,,pending_validation
+terraform/tf_015/main.tf,AWS-0176,MEDIUM,RDS IAM Database Authentication Disabled,FAIL,,pending_validation
+terraform/tf_015/main.tf,AWS-0177,MEDIUM,RDS Deletion Protection Disabled,FAIL,,pending_validation
+terraform/tf_016/main.tf,AWS-0099,LOW,Missing description for security group.,FAIL,,pending_validation
+terraform/tf_016/main.tf,AWS-0107,HIGH,Security groups should not allow unrestricted ingress to SSH or RDP from any IP address.,FAIL,,pending_validation
+terraform/tf_016/main.tf,AWS-0124,LOW,Missing description for security group rule.,FAIL,,pending_validation
+terraform/tf_017/main.tf,AWS-0099,LOW,Missing description for security group.,FAIL,,pending_validation
+terraform/tf_017/main.tf,AWS-0107,HIGH,Security groups should not allow unrestricted ingress to SSH or RDP from any IP address.,FAIL,,pending_validation
+terraform/tf_017/main.tf,AWS-0124,LOW,Missing description for security group rule.,FAIL,,pending_validation
+terraform/tf_018/main.tf,AWS-0099,LOW,Missing description for security group.,FAIL,,pending_validation
+terraform/tf_018/main.tf,AWS-0107,HIGH,Security groups should not allow unrestricted ingress to SSH or RDP from any IP address.,FAIL,,pending_validation
+terraform/tf_018/main.tf,AWS-0124,LOW,Missing description for security group rule.,FAIL,,pending_validation
+terraform/tf_019/main.tf,AWS-0099,LOW,Missing description for security group.,FAIL,,pending_validation
+terraform/tf_019/main.tf,AWS-0124,LOW,Missing description for security group rule.,FAIL,,pending_validation
+terraform/tf_020/main.tf,AWS-0099,LOW,Missing description for security group.,FAIL,,pending_validation
+terraform/tf_020/main.tf,AWS-0124,LOW,Missing description for security group rule.,FAIL,,pending_validation
