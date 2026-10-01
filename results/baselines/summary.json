@@ -1,0 +1,26 @@
+{
+  "status": "raw_baselines_collected_semantic_policy_mapping_pending",
+  "checkov": {
+    "version": "3.3.22",
+    "resources": 25,
+    "passed_checks": 56,
+    "failed_checks": 94
+  },
+  "kics": {
+    "version": "v2.1.20",
+    "files_scanned": 50,
+    "total_findings": 342,
+    "severity_counters": {
+      "CRITICAL": 9,
+      "HIGH": 62,
+      "INFO": 45,
+      "LOW": 110,
+      "MEDIUM": 116,
+      "TRACE": 0
+    }
+  },
+  "trivy": {
+    "version": "0.74.0",
+    "raw_findings": 199
+  }
+}

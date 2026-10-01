@@ -21,6 +21,13 @@ def main() -> None:
         with trivy_path.open(encoding="utf-8") as handle:
             trivy_count = max(0, sum(1 for _ in handle) - 1)
         trivy_section = f"""\n## Trivy raw baseline\n\n- Version: 0.74.0\n- Raw findings extracted: {trivy_count}\n- Semantic CloudGuard SID mapping: pending validation\n\nThe raw scan is retained for later normalization. It is not included in the\ndetection comparison because unresolved tool semantics cannot be scored as\nCloudGuard policy instances.\n"""
+    baseline_path = ROOT / "results" / "baselines" / "summary.json"
+    baseline_section = ""
+    if baseline_path.exists():
+        baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
+        checkov = baseline["checkov"]
+        kics = baseline["kics"]
+        baseline_section = f"""\n## Raw baseline scans\n\n- Checkov {checkov['version']}: {checkov['failed_checks']} failed and {checkov['passed_checks']} passed checks across {checkov['resources']} resources\n- KICS {kics['version']}: {kics['total_findings']} findings across {kics['files_scanned']} files\n\nThese are raw tool findings, not comparable policy-instance metrics. Semantic\nSID mapping remains pending validation.\n"""
     text = f"""# Reproduction Results
 
 ## Evidence status
@@ -53,6 +60,7 @@ reproducible synthetic mutation study, not as a generalization claim about
 production AWS IaC. Regenerate with `python scripts/reproduce_all.py`.
 {latency_section}
 {trivy_section}
+{baseline_section}
 ## Not yet measured
 
 No independent annotation agreement, Checkov/KICS/Trivy comparison, NDCG,

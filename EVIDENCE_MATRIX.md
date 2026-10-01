@@ -5,8 +5,8 @@
 | 50 frozen manifests | Complete | `benchmark/benchmark_manifest.csv` | Yes, as synthetic project-team data |
 | 70 policy-instance labels | Complete | `annotations/consensus.csv` | Yes, with annotation limitation |
 | CloudGuard TP/FP/FN/TN | Complete | `results/cloudguard/metrics.json` | Yes, as sanity evidence |
-| Checkov comparison | Pending | `results/baselines/` | No |
-| KICS comparison | Pending | `results/baselines/` | No |
+| Checkov raw scan | Complete; semantic mapping pending | `results/baselines/checkov/` | Raw scan only |
+| KICS raw scan | Complete; semantic mapping pending | `results/baselines/kics/` | Raw scan only |
 | Trivy raw scan | Complete; semantic mapping pending | `results/baselines/trivy/` | Raw scan only |
 | Independent expert agreement | Pending | `annotations/expert_1.csv`, `expert_2.csv` | No |
 | NDCG@10 | Pending | `experiments/ranking/` | No |

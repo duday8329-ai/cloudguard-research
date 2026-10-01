@@ -50,6 +50,15 @@ The raw scan is retained for later normalization. It is not included in the
 detection comparison because unresolved tool semantics cannot be scored as
 CloudGuard policy instances.
 
+
+## Raw baseline scans
+
+- Checkov 3.3.22: 94 failed and 56 passed checks across 25 resources
+- KICS v2.1.20: 342 findings across 50 files
+
+These are raw tool findings, not comparable policy-instance metrics. Semantic
+SID mapping remains pending validation.
+
 ## Not yet measured
 
 No independent annotation agreement, Checkov/KICS/Trivy comparison, NDCG,

@@ -25,6 +25,10 @@ This creates the benchmark, labels, CloudGuard predictions, confusion matrix,
 package validation report, and measured CloudGuard latency artifact. The
 scripts only use the Python standard library.
 
+After running Checkov, KICS, and Trivy, summarize their retained raw reports
+with `python scripts/summarize_baselines.py`. The summary intentionally stops
+before comparative scoring until semantic policy-SID mappings are validated.
+
 ## Repository layout
 
 - `benchmark/` contains the versioned Terraform and CloudFormation cases.
