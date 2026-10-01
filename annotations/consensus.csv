@@ -1,0 +1,17 @@
+instance_id,file_id,format,resource_id,policy_sid,expected_violation,severity,annotation_source
+U_tf_001,tf_001,terraform,aws_s3_bucket.data,POL_AWS_S3_PUBLIC,1,CRITICAL,project_team
+U_tf_002,tf_002,terraform,aws_s3_bucket.logs,POL_AWS_S3_PUBLIC,0,CRITICAL,project_team
+U_tf_003,tf_003,terraform,aws_db_instance.customer,POL_AWS_RDS_PUBLIC,1,CRITICAL,project_team
+U_tf_004,tf_004,terraform,aws_db_instance.customer,POL_AWS_RDS_ENCRYPTION,0,HIGH,project_team
+U_tf_005,tf_005,terraform,aws_security_group.web,POL_AWS_SG_UNRESTRICTED,1,HIGH,project_team
+U_tf_006,tf_006,terraform,aws_security_group.web,POL_AWS_SG_UNRESTRICTED,0,HIGH,project_team
+U_cf_001,cf_001,cloudformation,AppPolicy,POL_AWS_IAM_WILDCARD,1,HIGH,project_team
+U_cf_002,cf_002,cloudformation,AppPolicy,POL_AWS_IAM_WILDCARD,0,HIGH,project_team
+U_cf_003,cf_003,cloudformation,PrimaryDb,POL_AWS_RDS_ENCRYPTION,1,HIGH,project_team
+U_cf_004,cf_004,cloudformation,PrimaryDb,POL_AWS_RDS_PUBLIC,0,CRITICAL,project_team
+U_cf_005,cf_005,cloudformation,Artifacts,POL_AWS_S3_PUBLIC,1,CRITICAL,project_team
+U_cf_006,cf_006,cloudformation,Artifacts,POL_AWS_S3_PUBLIC,0,CRITICAL,project_team
+U_tf_003_POL_AWS_RDS_ENCRYPTION,tf_003,terraform,aws_db_instance.customer,POL_AWS_RDS_ENCRYPTION,0,HIGH,project_team
+U_tf_004_POL_AWS_RDS_PUBLIC,tf_004,terraform,aws_db_instance.customer,POL_AWS_RDS_PUBLIC,0,CRITICAL,project_team
+U_cf_003_POL_AWS_RDS_PUBLIC,cf_003,cloudformation,PrimaryDb,POL_AWS_RDS_PUBLIC,0,CRITICAL,project_team
+U_cf_004_POL_AWS_RDS_ENCRYPTION,cf_004,cloudformation,PrimaryDb,POL_AWS_RDS_ENCRYPTION,0,HIGH,project_team

@@ -1,0 +1,7 @@
+file_id,policy_sid,violation,analyzer
+tf_001,POL_AWS_S3_PUBLIC,1,cloudguard
+tf_003,POL_AWS_RDS_PUBLIC,1,cloudguard
+tf_005,POL_AWS_SG_UNRESTRICTED,1,cloudguard
+cf_001,POL_AWS_IAM_WILDCARD,1,cloudguard
+cf_003,POL_AWS_RDS_ENCRYPTION,1,cloudguard
+cf_005,POL_AWS_S3_PUBLIC,1,cloudguard

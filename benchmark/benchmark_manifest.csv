@@ -1,0 +1,13 @@
+file_id,format,path
+tf_001,terraform,benchmark/terraform/tf_001/main.tf
+tf_002,terraform,benchmark/terraform/tf_002/main.tf
+tf_003,terraform,benchmark/terraform/tf_003/main.tf
+tf_004,terraform,benchmark/terraform/tf_004/main.tf
+tf_005,terraform,benchmark/terraform/tf_005/main.tf
+tf_006,terraform,benchmark/terraform/tf_006/main.tf
+cf_001,cloudformation,benchmark/cloudformation/cf_001/main.yaml
+cf_002,cloudformation,benchmark/cloudformation/cf_002/main.yaml
+cf_003,cloudformation,benchmark/cloudformation/cf_003/main.yaml
+cf_004,cloudformation,benchmark/cloudformation/cf_004/main.yaml
+cf_005,cloudformation,benchmark/cloudformation/cf_005/main.yaml
+cf_006,cloudformation,benchmark/cloudformation/cf_006/main.yaml

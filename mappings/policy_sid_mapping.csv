@@ -1,0 +1,6 @@
+policy_sid,policy_name,resource_type,cloudguard_status,checkov_mapping,kics_mapping,trivy_mapping,mapping_status
+POL_AWS_S3_PUBLIC,Public S3 access,aws_s3_bucket,implemented,,,,pending validation
+POL_AWS_RDS_PUBLIC,Public RDS access,aws_db_instance,implemented,,,,pending validation
+POL_AWS_SG_UNRESTRICTED,Unrestricted ingress,aws_security_group,implemented,,,,pending validation
+POL_AWS_IAM_WILDCARD,Wildcard IAM action,aws_iam_policy,implemented,,,,pending validation
+POL_AWS_RDS_ENCRYPTION,RDS storage encryption disabled,aws_db_instance,implemented,,,,pending validation

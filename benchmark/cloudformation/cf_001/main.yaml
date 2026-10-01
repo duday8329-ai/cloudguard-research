@@ -1,0 +1,5 @@
+Resources:
+  AppPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument: {"Statement": [{"Effect": "Allow", "Action": "*", "Resource": "*"}]}
