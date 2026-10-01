@@ -12,7 +12,7 @@ fact solely to reproduce those claimed numbers.
 
 ## Safe replacement text
 
-> CloudGuard is evaluated using a versioned AWS IaC benchmark whose policy-instance ground truth and metric-generation scripts will be released at a persistent repository URL upon publication. At the time of submission, the included project-team sanity benchmark verifies the evaluation pipeline; broader comparative and human-annotation results are reported only after their underlying raw data is available.
+> The CloudGuard reproducibility companion is available at https://github.com/duday8329-ai/cloudguard-research. It currently provides a versioned 12-manifest project-team sanity benchmark, policy-instance ground truth, and scripts that generate the included CloudGuard confusion matrix. Broader comparative, ranking, remediation, latency, and independent human-annotation results are reported only after their underlying raw data is available.
 
 ## Honest current method statement
 
@@ -20,5 +20,5 @@ fact solely to reproduce those claimed numbers.
 
 ## Before changing this document
 
-Replace the placeholder repository language only after the target GitHub
-repository exists, contains the stated artefacts, and has a permanent URL.
+Before submitting, verify that this repository URL remains public and that the
+paper describes exactly the artefacts and evidence it contains at submission.

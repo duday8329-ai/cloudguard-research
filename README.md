@@ -3,6 +3,8 @@
 This repository is the reproducibility companion for the CloudGuard capstone:
 an AWS Infrastructure-as-Code analyzer for Terraform and CloudFormation.
 
+Repository URL: https://github.com/duday8329-ai/cloudguard-research
+
 ## Evidence status
 
 The included benchmark is a **12-manifest project-team sanity benchmark**. It
