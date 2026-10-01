@@ -32,8 +32,8 @@ production AWS IaC. Regenerate with `python scripts/reproduce_all.py`.
 ## CloudGuard latency measurement
 
 - Trials: 10
-- Median: 51.201 ms
-- p95: 56.173 ms
+- Median: 77.297 ms
+- p95: 85.088 ms
 - Environment: Windows-11-10.0.26300-SP0
 
 This is a local prototype measurement on the synthetic benchmark, not a

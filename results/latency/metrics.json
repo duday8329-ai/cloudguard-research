@@ -2,8 +2,8 @@
   "analyzer": "cloudguard",
   "benchmark_status": "project_team_synthetic_mutation_benchmark_not_conference_evidence",
   "trials": 10,
-  "median_ms": 51.201,
-  "p95_ms": 56.173,
+  "median_ms": 77.297,
+  "p95_ms": 85.088,
   "python": "3.13.15",
   "platform": "Windows-11-10.0.26300-SP0"
 }
