@@ -1,0 +1,17 @@
+{
+  "tool": "trivy",
+  "benchmark_status": "project_team_synthetic_mutation_benchmark_not_conference_evidence",
+  "covered_policy_instances": 60,
+  "total_policy_instances": 70,
+  "coverage": 0.8571,
+  "confusion_matrix": {
+    "tp": 24,
+    "fp": 0,
+    "fn": 0,
+    "tn": 36
+  },
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "mapping_status": "project_team_semantic_validation_for_frozen_benchmark"
+}

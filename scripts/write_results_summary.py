@@ -20,22 +20,32 @@ def main() -> None:
     if trivy_path.exists():
         with trivy_path.open(encoding="utf-8") as handle:
             trivy_count = max(0, sum(1 for _ in handle) - 1)
-        trivy_section = f"""\n## Trivy raw baseline\n\n- Version: 0.74.0\n- Raw findings extracted: {trivy_count}\n- Semantic CloudGuard SID mapping: pending validation\n\nThe raw scan is retained for later normalization. It is not included in the\ndetection comparison because unresolved tool semantics cannot be scored as\nCloudGuard policy instances.\n"""
+        trivy_section = f"""\n## Trivy raw baseline\n\n- Version: 0.74.0\n- Raw findings extracted: {trivy_count}\n- Semantic CloudGuard SID mapping: recorded for mapped policies\n\nThe raw scan and mapped predictions are retained. CloudFormation and Terraform\nIAM wildcard cases are excluded because no validated equivalent Trivy rule was\nidentified.\n"""
     baseline_path = ROOT / "results" / "baselines" / "summary.json"
     baseline_section = ""
     if baseline_path.exists():
         baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
         checkov = baseline["checkov"]
         kics = baseline["kics"]
-        baseline_section = f"""\n## Raw baseline scans\n\n- Checkov {checkov['version']}: {checkov['failed_checks']} failed and {checkov['passed_checks']} passed checks across {checkov['resources']} resources\n- KICS {kics['version']}: {kics['total_findings']} findings across {kics['files_scanned']} files\n\nThese are raw tool findings, not comparable policy-instance metrics. Semantic\nSID mapping remains pending validation.\n"""
+        baseline_section = f"""\n## Raw baseline scans\n\n- Checkov {checkov['version']}: {checkov['failed_checks']} failed and {checkov['passed_checks']} passed checks across {checkov['resources']} resources\n- KICS {kics['version']}: {kics['total_findings']} findings across {kics['files_scanned']} files\n\nThese are raw tool findings; the mapped policy-instance metrics are reported in\nthe comparison table below. Unmatched rules are excluded.\n"""
+    detection_path = ROOT / "results" / "detection" / "summary.json"
+    detection_section = ""
+    if detection_path.exists():
+        detection = json.loads(detection_path.read_text(encoding="utf-8"))
+        lines = ["\n## Mapped baseline comparison", "", "| Tool | Coverage | Precision | Recall | F1 |", "|---|---:|---:|---:|---:|"]
+        for tool in ("checkov", "kics", "trivy"):
+            row = detection[tool]
+            lines.append(f"| {tool} | {row['covered_policy_instances']}/{row['total_policy_instances']} | {row['precision']:.4f} | {row['recall']:.4f} | {row['f1']:.4f} |")
+        lines.extend(["", "Metrics are computed from normalized findings and the frozen policy-instance labels. Coverage excludes policy/format pairs for which the tool has no validated equivalent rule. These are synthetic mutation benchmark results and are not production generalization evidence.", ""])
+        detection_section = "\n".join(lines)
     text = f"""# Reproduction Results
 
 ## Evidence status
 
 This file is generated from the included 50-manifest project-team synthetic
 mutation benchmark. It is **not complete conference evidence** and must not be
-substituted for a larger benchmark, independent annotations, baseline
-comparisons, ranking, or remediation experiments.
+substituted for a larger benchmark, independent annotations, ranking, or
+remediation experiments.
 
 ## Included sanity run
 
@@ -61,11 +71,13 @@ production AWS IaC. Regenerate with `python scripts/reproduce_all.py`.
 {latency_section}
 {trivy_section}
 {baseline_section}
+{detection_section}
 ## Not yet measured
 
-No independent annotation agreement, Checkov/KICS/Trivy comparison, NDCG,
-remediation success rate, gate validation, ablation, or human-subject study is
-reported because the required raw evidence is not present.
+No independent annotation agreement, NDCG, remediation success rate, gate
+validation, ablation, or human-subject study is reported because the required
+raw evidence is not present. Baseline comparison is limited to the mapped
+synthetic policy instances described above.
 """
     (ROOT / "RESULTS.md").write_text(text, encoding="utf-8")
     print("Wrote RESULTS.md")

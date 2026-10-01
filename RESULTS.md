@@ -4,8 +4,8 @@
 
 This file is generated from the included 50-manifest project-team synthetic
 mutation benchmark. It is **not complete conference evidence** and must not be
-substituted for a larger benchmark, independent annotations, baseline
-comparisons, ranking, or remediation experiments.
+substituted for a larger benchmark, independent annotations, ranking, or
+remediation experiments.
 
 ## Included sanity run
 
@@ -44,11 +44,11 @@ production performance claim.
 
 - Version: 0.74.0
 - Raw findings extracted: 199
-- Semantic CloudGuard SID mapping: pending validation
+- Semantic CloudGuard SID mapping: recorded for mapped policies
 
-The raw scan is retained for later normalization. It is not included in the
-detection comparison because unresolved tool semantics cannot be scored as
-CloudGuard policy instances.
+The raw scan and mapped predictions are retained. CloudFormation and Terraform
+IAM wildcard cases are excluded because no validated equivalent Trivy rule was
+identified.
 
 
 ## Raw baseline scans
@@ -56,11 +56,23 @@ CloudGuard policy instances.
 - Checkov 3.3.22: 94 failed and 56 passed checks across 25 resources
 - KICS v2.1.20: 342 findings across 50 files
 
-These are raw tool findings, not comparable policy-instance metrics. Semantic
-SID mapping remains pending validation.
+These are raw tool findings; the mapped policy-instance metrics are reported in
+the comparison table below. Unmatched rules are excluded.
+
+
+## Mapped baseline comparison
+
+| Tool | Coverage | Precision | Recall | F1 |
+|---|---:|---:|---:|---:|
+| checkov | 65/70 | 1.0000 | 1.0000 | 1.0000 |
+| kics | 65/70 | 1.0000 | 1.0000 | 1.0000 |
+| trivy | 60/70 | 1.0000 | 1.0000 | 1.0000 |
+
+Metrics are computed from normalized findings and the frozen policy-instance labels. Coverage excludes policy/format pairs for which the tool has no validated equivalent rule. These are synthetic mutation benchmark results and are not production generalization evidence.
 
 ## Not yet measured
 
-No independent annotation agreement, Checkov/KICS/Trivy comparison, NDCG,
-remediation success rate, gate validation, ablation, or human-subject study is
-reported because the required raw evidence is not present.
+No independent annotation agreement, NDCG, remediation success rate, gate
+validation, ablation, or human-subject study is reported because the required
+raw evidence is not present. Baseline comparison is limited to the mapped
+synthetic policy instances described above.

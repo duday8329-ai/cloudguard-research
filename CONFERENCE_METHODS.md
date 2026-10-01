@@ -54,10 +54,12 @@ limited rules implemented by the prototype.
 Checkov, KICS, and Trivy must be run on the same frozen files. Their raw output,
 version, command line, and semantic mapping must be retained before comparison.
 Trivy 0.74.0, Checkov 3.3.22, and KICS 2.1.20 have been run and their raw
-reports are retained, but the findings are not yet mapped to the five
-CloudGuard policy SIDs. An unmatched rule is not treated as a match merely
-because its wording is similar, so no baseline precision/recall comparison is
-reported yet.
+reports are retained. The mapping file records only rules whose conditions
+match the frozen benchmark policy definitions. The resulting comparison covers
+65 policy instances for Checkov and KICS and 60 for Trivy; CloudFormation IAM
+wildcard cases are excluded where no equivalent mapped baseline rule exists.
+An unmatched rule is not treated as a match merely because its wording is
+similar.
 
 ## Ranking, remediation, and latency
 

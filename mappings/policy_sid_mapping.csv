@@ -1,6 +1,27 @@
-policy_sid,policy_name,resource_type,cloudguard_status,checkov_mapping,kics_mapping,trivy_mapping,mapping_status
-POL_AWS_S3_PUBLIC,Public S3 access,aws_s3_bucket,implemented,,,,pending validation
-POL_AWS_RDS_PUBLIC,Public RDS access,aws_db_instance,implemented,,,,pending validation
-POL_AWS_SG_UNRESTRICTED,Unrestricted ingress,aws_security_group,implemented,,,,pending validation
-POL_AWS_IAM_WILDCARD,Wildcard IAM action,aws_iam_policy,implemented,,,,pending validation
-POL_AWS_RDS_ENCRYPTION,RDS storage encryption disabled,aws_db_instance,implemented,,,,pending validation
+tool,format,rule_id,policy_sid,mapping_basis,mapping_status
+checkov,terraform,CKV_AWS_20,POL_AWS_S3_PUBLIC,S3 ACL public-read condition,validated_for_frozen_benchmark
+checkov,cloudformation,CKV_AWS_20,POL_AWS_S3_PUBLIC,S3 public-read condition,validated_for_frozen_benchmark
+checkov,terraform,CKV_AWS_17,POL_AWS_RDS_PUBLIC,RDS publicly_accessible true,validated_for_frozen_benchmark
+checkov,cloudformation,CKV_AWS_17,POL_AWS_RDS_PUBLIC,RDS PubliclyAccessible true,validated_for_frozen_benchmark
+checkov,terraform,CKV_AWS_16,POL_AWS_RDS_ENCRYPTION,RDS storage_encrypted false,validated_for_frozen_benchmark
+checkov,cloudformation,CKV_AWS_16,POL_AWS_RDS_ENCRYPTION,RDS StorageEncrypted false,validated_for_frozen_benchmark
+checkov,terraform,CKV_AWS_24,POL_AWS_SG_UNRESTRICTED,SSH ingress 0.0.0.0/0 on frozen cases,validated_for_frozen_benchmark
+checkov,cloudformation,CKV_AWS_24,POL_AWS_SG_UNRESTRICTED,SSH ingress 0.0.0.0/0 on frozen cases,validated_for_frozen_benchmark
+checkov,terraform,CKV_AWS_63,POL_AWS_IAM_WILDCARD,IAM Action wildcard,validated_for_frozen_benchmark
+kics,terraform,38c5ee0d-7f22-4260-ab72-5073048df100,POL_AWS_S3_PUBLIC,S3 ACL read or write to all users,validated_for_frozen_benchmark
+kics,cloudformation,219f4c95-aa50-44e0-97de-cf71f4641170,POL_AWS_S3_PUBLIC,S3 ACL read to all users,validated_for_frozen_benchmark
+kics,terraform,35113e6f-2c6b-414d-beec-7a9482d3b2d1,POL_AWS_RDS_PUBLIC,RDS publicly_accessible true,validated_for_frozen_benchmark
+kics,cloudformation,de38e1d5-54cb-4111-a868-6f7722695007,POL_AWS_RDS_PUBLIC,RDS PubliclyAccessible true,validated_for_frozen_benchmark
+kics,terraform,08bd0760-8752-44e1-9779-7bb369b2b4e4,POL_AWS_RDS_ENCRYPTION,RDS storage encryption false,validated_for_frozen_benchmark
+kics,cloudformation,5beacce3-4020-4a3d-9e1d-a36f953df630,POL_AWS_RDS_ENCRYPTION,RDS StorageEncrypted false,validated_for_frozen_benchmark
+kics,terraform,4728cd65-a20c-49da-8b31-9c08b423e4db,POL_AWS_SG_UNRESTRICTED,unrestricted ingress on frozen cases,validated_for_frozen_benchmark
+kics,cloudformation,4a1e6b34-1008-4e61-a5f2-1f7c276f8d14,POL_AWS_SG_UNRESTRICTED,unrestricted ingress on frozen cases,validated_for_frozen_benchmark
+kics,terraform,575a2155-6af1-4026-b1af-d5bc8fe2a904,POL_AWS_IAM_WILDCARD,IAM full permissions from wildcard action and resource,validated_for_frozen_benchmark
+trivy,terraform,AWS-0092,POL_AWS_S3_PUBLIC,S3 bucket publicly accessible through ACL,validated_for_frozen_benchmark
+trivy,cloudformation,AWS-0092,POL_AWS_S3_PUBLIC,S3 bucket publicly accessible through ACL,validated_for_frozen_benchmark
+trivy,terraform,AWS-0180,POL_AWS_RDS_PUBLIC,RDS publicly accessible,validated_for_frozen_benchmark
+trivy,cloudformation,AWS-0180,POL_AWS_RDS_PUBLIC,RDS publicly accessible,validated_for_frozen_benchmark
+trivy,terraform,AWS-0080,POL_AWS_RDS_ENCRYPTION,RDS storage encryption disabled,validated_for_frozen_benchmark
+trivy,cloudformation,AWS-0080,POL_AWS_RDS_ENCRYPTION,RDS storage encryption disabled,validated_for_frozen_benchmark
+trivy,terraform,AWS-0107,POL_AWS_SG_UNRESTRICTED,SSH/RDP unrestricted ingress on frozen SSH cases,validated_for_frozen_benchmark
+trivy,cloudformation,AWS-0107,POL_AWS_SG_UNRESTRICTED,SSH/RDP unrestricted ingress on frozen SSH cases,validated_for_frozen_benchmark

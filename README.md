@@ -28,6 +28,8 @@ scripts only use the Python standard library.
 After running Checkov, KICS, and Trivy, summarize their retained raw reports
 with `python scripts/summarize_baselines.py`. The summary intentionally stops
 before comparative scoring until semantic policy-SID mappings are validated.
+Then run `python scripts/score_baselines.py` to generate normalized predictions
+and mapped precision, recall, F1, coverage, and confusion matrices.
 
 ## Repository layout
 

@@ -1,0 +1,17 @@
+{
+  "tool": "checkov",
+  "benchmark_status": "project_team_synthetic_mutation_benchmark_not_conference_evidence",
+  "covered_policy_instances": 65,
+  "total_policy_instances": 70,
+  "coverage": 0.9286,
+  "confusion_matrix": {
+    "tp": 27,
+    "fp": 0,
+    "fn": 0,
+    "tn": 38
+  },
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "mapping_status": "project_team_semantic_validation_for_frozen_benchmark"
+}
