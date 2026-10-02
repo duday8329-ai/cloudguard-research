@@ -1,0 +1,11 @@
+{
+  "variant": "without_POL_AWS_SG_UNRESTRICTED",
+  "removed_policy": "POL_AWS_SG_UNRESTRICTED",
+  "tp": 24,
+  "fp": 0,
+  "fn": 6,
+  "tn": 40,
+  "precision": 1.0,
+  "recall": 0.8,
+  "f1": 0.8889
+}

@@ -1,0 +1,11 @@
+{
+  "variant": "full",
+  "removed_policy": "none",
+  "tp": 30,
+  "fp": 0,
+  "fn": 0,
+  "tn": 40,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0
+}

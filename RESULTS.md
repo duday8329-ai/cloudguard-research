@@ -55,6 +55,15 @@ five patterns. They measure remediation guidance clearance on the synthetic
 benchmark; they do not establish automatic repair capability or production
 syntax validation.
 
+## Leave-one-policy-out ablation
+
+The full system produced precision 1.0000, recall 1.0000, and F1 1.0000.
+Removing any one of the five policy rules produced precision 1.0000, recall
+0.8000, and F1 0.8889, with six false negatives. These results show that each
+rule family contributes six positive cases in this balanced synthetic
+benchmark. They are controlled component-sensitivity results, not evidence of
+production generalization.
+
 ## CloudGuard latency measurement
 
 - Trials: 10
