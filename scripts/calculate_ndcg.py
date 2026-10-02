@@ -17,6 +17,11 @@ def main() -> None:
     path, k = Path(sys.argv[1]), int(sys.argv[2])
     with path.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
+    missing = [row.get("instance_id", str(index + 1)) for index, row in enumerate(rows) if not row.get("expert_relevance", "").strip()]
+    if missing:
+        preview = ", ".join(missing[:5])
+        suffix = "..." if len(missing) > 5 else ""
+        raise SystemExit(f"expert_relevance is blank for {len(missing)} row(s): {preview}{suffix}. Fill every value with an integer from 0 to 4.")
     observed = [int(row["expert_relevance"]) for row in rows[:k]]
     ideal = sorted((int(row["expert_relevance"]) for row in rows), reverse=True)[:k]
     value = dcg(observed) / dcg(ideal) if dcg(ideal) else 0.0
