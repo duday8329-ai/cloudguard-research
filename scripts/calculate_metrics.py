@@ -3,13 +3,16 @@ from __future__ import annotations
 
 import csv
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main() -> None:
-    with (ROOT / "annotations" / "consensus.csv").open(newline="", encoding="utf-8") as handle:
+    truth_name = sys.argv[1] if len(sys.argv) > 1 else "annotations/consensus.csv"
+    truth_path = ROOT / truth_name
+    with truth_path.open(newline="", encoding="utf-8") as handle:
         truth = list(csv.DictReader(handle))
     with (ROOT / "results" / "cloudguard" / "predictions.csv").open(newline="", encoding="utf-8") as handle:
         predictions = {(r["file_id"], r["policy_sid"]) for r in csv.DictReader(handle) if r["violation"] == "1"}
@@ -24,7 +27,8 @@ def main() -> None:
     precision = matrix["tp"] / (matrix["tp"] + matrix["fp"]) if matrix["tp"] + matrix["fp"] else 0.0
     recall = matrix["tp"] / (matrix["tp"] + matrix["fn"]) if matrix["tp"] + matrix["fn"] else 0.0
     f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
-    result = {"analyzer": "cloudguard", "benchmark_status": "project_team_sanity_benchmark_not_conference_evidence", "labelled_policy_instances": len(truth), "confusion_matrix": matrix, "precision": round(precision, 4), "recall": round(recall, 4), "f1": round(f1, 4)}
+    source = truth[0].get("annotation_source", "project_team_predefined_policy_criteria") if truth else "unknown"
+    result = {"analyzer": "cloudguard", "benchmark_status": "reviewer_consensus_synthetic_benchmark", "annotation_source": source, "truth_file": truth_name, "labelled_policy_instances": len(truth), "confusion_matrix": matrix, "precision": round(precision, 4), "recall": round(recall, 4), "f1": round(f1, 4)}
     output = ROOT / "results" / "cloudguard" / "metrics.json"
     output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))

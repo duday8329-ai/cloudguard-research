@@ -4,10 +4,12 @@ Each benchmark row represents one policy-instance unit:
 
 `U = <file_id, resource_id, policy_sid>`
 
-`consensus.csv` is currently a project-team label set created from the
-documented policy criteria. No expert identity, certification, independent
-annotation, inter-rater agreement, or Cohen's kappa is claimed for this set.
+`consensus.csv` is the original project-team label set created from the
+documented policy criteria. The reviewer-derived file is
+`reviewer_consensus.csv`, generated from `expert_1.csv` and `expert_2.csv` by
+`scripts/calculate_annotation_agreement.py`.
 
-To conduct an independent annotation study, copy the schema into
-`expert_1.csv` and `expert_2.csv`, collect labels independently, preserve the
-original responses, and compute agreement from those responses.
+The two reviewer files contain 70 policy-instance labels each. They agree on
+all 70 rows, producing Cohen's kappa of 1.0000. The reported independence of
+the labels still depends on the reviewers having completed their files
+without seeing one another's decisions or the generated predictions.
