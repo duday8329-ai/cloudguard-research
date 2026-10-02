@@ -1,0 +1,8 @@
+{
+  "metric": "NDCG@10",
+  "value": 1.0,
+  "packet": "experiments/ranking/ranking_packet.csv",
+  "ranking_order": "cloudguard_rank",
+  "label_status": "severity_derived_reviewer_baseline",
+  "interpretation": "Use as a baseline; do not call expert-consensus ranking evidence unless relevance was assigned independently before seeing CloudGuard rank or risk points."
+}

@@ -64,6 +64,18 @@ rule family contributes six positive cases in this balanced synthetic
 benchmark. They are controlled component-sensitivity results, not evidence of
 production generalization.
 
+## Ranking baseline
+
+- Evaluated findings: 30
+- Ranking metric: NDCG@10
+- CloudGuard-ranked value: 1.0000
+- Label status: severity-derived reviewer baseline
+
+The relevance values follow the predefined severity and risk-point rubric, so
+this result is a ranking baseline. It must not be described as independent
+expert-consensus NDCG unless relevance was assigned before reviewers saw the
+CloudGuard ranking or risk points.
+
 ## CloudGuard latency measurement
 
 - Trials: 10

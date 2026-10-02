@@ -9,7 +9,7 @@
 | KICS comparison | Complete for 65 mapped instances | `results/detection/kics_metrics.json` | Yes, synthetic benchmark only |
 | Trivy comparison | Complete for 60 mapped instances | `results/detection/trivy_metrics.json` | Yes, synthetic benchmark only |
 | Two-reviewer agreement | Complete, subject to documenting independent collection | `annotations/expert_1.csv`, `expert_2.csv`, `results/annotations/agreement.json` | Yes, if the collection process was independent |
-| NDCG@10 | Pending | `experiments/ranking/` | No |
+| NDCG@10 severity baseline | Complete | `results/ranking/metrics.json` | Yes, as a derived baseline |
 | Remediation clearance and gates | Pending | `experiments/remediation/` | No |
 | CloudGuard latency | Complete for prototype | `results/latency/cloudguard.csv` and `metrics.json` | Yes, with machine details |
 | Ablation study | Pending | `experiments/ablation/` | No |
