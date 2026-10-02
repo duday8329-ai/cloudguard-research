@@ -30,7 +30,7 @@ then be run in the order documented in `RESULTS.md` and the experiment folders.
 | CloudGuard TP / FP / FN / TN | 30 / 0 / 0 / 40 | Generated from reviewer consensus and raw predictions; synthetic only |
 | CloudGuard precision / recall / F1 | 1.0000 / 1.0000 / 1.0000 | Sanity check only; not production generalization evidence |
 | Checkov, KICS, Trivy runs | 3 raw scans | Mapped metrics cover 65, 65, and 60 policy instances respectively |
-| Reviewer agreement / Cohen's kappa | 70 pairs / 1.0000 | Report only if collection was genuinely independent |
+| Reviewer-label consistency audit | 70 pairs / 1.0000 agreement | Internal diagnostic only; do not report kappa as inter-rater evidence |
 | Ranking relevance labels / NDCG | 30 / 1.0000 | Severity-derived baseline, not independent consensus |
 | Controlled remediation trials / Gate 1 / Gate 2 | 30 / 30 / 30 | Lexical/CloudGuard prototype gates; no native IaC validator |
 | Latency repetitions | 10 | Local prototype measurement |

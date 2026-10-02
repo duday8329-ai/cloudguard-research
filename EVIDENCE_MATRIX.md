@@ -8,7 +8,7 @@
 | Checkov comparison | Complete for 65 mapped instances | `results/detection/checkov_metrics.json` | Yes, synthetic benchmark only |
 | KICS comparison | Complete for 65 mapped instances | `results/detection/kics_metrics.json` | Yes, synthetic benchmark only |
 | Trivy comparison | Complete for 60 mapped instances | `results/detection/trivy_metrics.json` | Yes, synthetic benchmark only |
-| Two-reviewer agreement | Complete, subject to documenting independent collection | `annotations/expert_1.csv`, `expert_2.csv`, `results/annotations/agreement.json` | Yes, if the collection process was independent |
+| Reviewer-label consistency audit | Complete as an internal diagnostic; not independent annotation evidence | `annotations/expert_1.csv`, `expert_2.csv`, `results/annotations/agreement.json` | No, unless independent blinded collection is documented |
 | NDCG@10 severity baseline | Complete | `results/ranking/metrics.json` | Yes, as a derived baseline |
 | Remediation clearance and prototype gates | Complete with limitations | `results/remediation/remediation_results.csv` | Yes, as controlled replacement evidence; not automatic repair or native syntax validation |
 | CloudGuard latency | Complete for prototype | `results/latency/cloudguard.csv` and `metrics.json` | Yes, with machine details |
@@ -18,5 +18,6 @@
 The historical claims of 120 configurations, 840 annotations, 318 violations,
 κ=0.92, NDCG@10=0.916, and remediation percentages are not supported by this
 repository and remain excluded from the conference paper. The current NDCG
-value is severity-derived, the reviewer agreement is valid only if the reviews
-were collected independently, and the remediation gates are prototype checks.
+value is severity-derived, the reviewer kappa is retained only as an internal
+diagnostic because independent blinded collection was not documented, and the
+remediation gates are prototype checks.

@@ -10,9 +10,9 @@ Repository URL: https://github.com/duday8329-ai/cloudguard-research
 The included benchmark is a **50-manifest project-team synthetic mutation
 benchmark** containing 70 labelled policy-instance pairs. It is a reproducible
 engineering evaluation of the current prototype, not a production
-generalization study. Two reviewer files and their consensus are included;
-report reviewer agreement only if the reviews were actually completed
-independently. The NDCG result is severity-derived, remediation is controlled
+generalization study. Two reviewer files and their consensus are included as an
+audit trail, but independent blinded collection was not documented, so kappa is
+not reported as inter-rater evidence. The NDCG result is severity-derived, remediation is controlled
 replacement rather than automatic repair, native IaC validators were
 unavailable, and no human study was conducted.
 

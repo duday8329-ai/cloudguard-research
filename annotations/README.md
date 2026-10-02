@@ -10,6 +10,7 @@ documented policy criteria. The reviewer-derived file is
 `scripts/calculate_annotation_agreement.py`.
 
 The two reviewer files contain 70 policy-instance labels each. They agree on
-all 70 rows, producing Cohen's kappa of 1.0000. The reported independence of
-the labels still depends on the reviewers having completed their files
-without seeing one another's decisions or the generated predictions.
+all 70 rows, producing a diagnostic Cohen's kappa of 1.0000. Because the
+collection process was not documented as independent blinded annotation, this
+value is retained for auditability but is not reported as inter-rater evidence
+in the paper.

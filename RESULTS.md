@@ -30,18 +30,18 @@ exercise the same limited rules as the prototype. They are useful as a
 reproducible synthetic mutation study, not as a generalization claim about
 production AWS IaC.
 
-## Reviewer agreement
+## Reviewer-label consistency audit
 
 - Reviewer rows: 70 per reviewer
 - Agreements: 70
 - Disagreements: 0
 - Observed agreement: 1.0000
-- Cohen's kappa: 1.0000
+- Cohen's kappa: 1.0000 (diagnostic only; not reported as independent evidence)
 - Reviewer consensus: `annotations/reviewer_consensus.csv`
 
-These values are reportable only when the two reviewers completed their files
-independently and without seeing the other reviewer's labels or analyzer
-predictions. The benchmark remains a synthetic project-team study.
+The two files are retained for auditability, but independent blinded collection
+was not documented. Therefore the paper does not report this kappa value as
+inter-rater reliability. The benchmark remains a synthetic project-team study.
 
 ## Controlled remediation validation
 
