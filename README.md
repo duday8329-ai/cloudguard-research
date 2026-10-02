@@ -71,3 +71,18 @@ experiments that still require human or external-tool execution.
 The historical `github.com/cloudguard-project/cloudguard-core` URL must not be
 used: it does not resolve and should be removed from the paper until a real
 repository is published.
+
+## Project interface and new controls
+
+The browser project is in `app/index.html`. Open that file or serve the `app`
+folder locally to use the upload-and-scan interface. It now includes a
+detect -> repair -> re-scan workflow and a configurable deployment policy gate.
+
+The repair engine applies only deterministic edits for public S3 access, public
+RDS access, and disabled RDS encryption. IAM wildcard permissions and
+unrestricted network access without approved intent remain manual-review cases.
+The gate returns `ALLOW` or `BLOCK` for CI policy evaluation and does not deploy
+to AWS.
+
+The updated review presentation is in
+`presentation/CloudGuard_MBU_Review_AutoRepair_Gate_Final.pptx`.
