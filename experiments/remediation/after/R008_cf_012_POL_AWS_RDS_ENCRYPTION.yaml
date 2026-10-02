@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  rdsencryption2:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      DBInstanceClass: db.t3.micro
+      Engine: postgres
+      MasterUsername: admin
+      MasterUserPassword: change-me-for-test-only
+      PubliclyAccessible: false
+      StorageEncrypted: true

@@ -42,6 +42,19 @@ These values are reportable only when the two reviewers completed their files
 independently and without seeing the other reviewer's labels or analyzer
 predictions. The benchmark remains a synthetic project-team study.
 
+## Controlled remediation validation
+
+- Cases: 30 positive policy instances
+- Controlled replacements generated: 30/30
+- Structural Gate 1 passed: 30/30
+- CloudGuard re-scan Gate 2 passed: 30/30
+- Native Terraform and CloudFormation validators: unavailable in the run environment
+
+These results evaluate controlled rule replacements against the prototype's
+five patterns. They measure remediation guidance clearance on the synthetic
+benchmark; they do not establish automatic repair capability or production
+syntax validation.
+
 ## CloudGuard latency measurement
 
 - Trials: 10

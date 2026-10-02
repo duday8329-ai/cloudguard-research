@@ -1,0 +1,6 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  s33:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
