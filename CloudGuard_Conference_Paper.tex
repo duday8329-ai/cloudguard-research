@@ -56,14 +56,14 @@ Infrastructure as Code, cloud security, policy violation detection, explainable 
 \section{Introduction}
 Cloud infrastructure is increasingly declared in machine-readable configuration rather than provisioned manually. This improves repeatability, but it also allows a permissive access rule or disabled protection to be copied across environments before deployment review. Security scanners can identify many conditions, yet their output is often difficult for a developer or reviewer to connect to a concrete policy and next action.
 
-CloudGuard addresses this traceability problem with a small, inspectable AWS IaC analyzer. The prototype reads Terraform and CloudFormation files locally in the browser, applies five explicit rules, computes a transparent score from configured deductions, and displays remediation guidance. It is a capstone research artifact and demonstration, not a production cloud security service.
+CloudGuard addresses this traceability problem with a small, inspectable AWS IaC analyzer. Security scanners such as Checkov, KICS, and Trivy are commonly used for IaC security analysis~\cite{checkov,kics,trivy}. The prototype reads Terraform and CloudFormation files locally in the browser, applies five explicit rules, computes a transparent score from configured deductions, and displays remediation guidance. It is a capstone research artifact and demonstration, not a production cloud security service.
 
 Minna et al.~\cite{minna2026automated} investigated inconsistent security-policy analysis and policy mapping across analyzers for Helm charts in Kubernetes environments. CloudGuard studies the related traceability problem for AWS Terraform and CloudFormation, without implementing Helm or Kubernetes support.
 
-The contributions are: (1) a browser workflow for local AWS IaC policy review; (2) a finding representation that preserves policy ID, severity, risk points, source-control reference, and guidance; (3) a reproducible synthetic mutation benchmark for implementation sanity testing; and (4) an explicit boundary between measured results and future experiments.
+The contributions are: (1) a browser workflow for local AWS IaC policy review; (2) a finding representation that preserves policy ID, severity, risk points, control reference, and remediation guidance; (3) a reproducible synthetic mutation benchmark for implementation sanity testing; and (4) an explicit boundary between measured results and future experiments.
 
 \section{Scope and Research Questions}
-CloudGuard supports Terraform and CloudFormation only. It does not support Helm or Kubernetes, does not execute changes against AWS, and does not automatically rewrite source files. The selected file is read in the browser, matched against deterministic rules, and rendered as a report and remediation view.
+CloudGuard supports Terraform and CloudFormation~\cite{terraform,cloudformation} only. It does not support Helm or Kubernetes, does not execute changes against AWS, and does not automatically rewrite source files. The selected file is read in the browser, matched against deterministic rules, and rendered as a report and remediation view.
 
 We define three questions for the current prototype evaluation:
 \begin{itemize}
@@ -75,7 +75,7 @@ We define three questions for the current prototype evaluation:
 \section{System Design}
 The user selects a \texttt{.tf}, \texttt{.yaml}, \texttt{.yml}, or \texttt{.json} file, or loads the built-in vulnerable sample. The browser places the text in the editor. Matching rules become finding records. The renderer displays a report, a 0--100 score, and remediation recommendations. No cloud credentials or deployment operation is required.
 
-The current policies are S3-001 for public S3 access, RDS-001 for public RDS access, SG-001 for unrestricted ingress, IAM-001 for wildcard IAM actions, and RDS-002 for disabled database encryption. The score begins at 100 and subtracts 28, 25, 18, 18, and 14 points for these findings, respectively. The score is an attention-prioritization aid, not a probability of compromise.
+The current policies are S3-001 for public S3 access, RDS-001 for public RDS access, SG-001 for unrestricted ingress, IAM-001 for wildcard IAM actions, and RDS-002 for disabled database encryption. The selected controls are aligned with common cloud security guidance, including the AWS Well-Architected Security Pillar~\cite{awswell}. The score begins at 100 and subtracts 28, 25, 18, 18, and 14 points for these findings, respectively. The score is an attention-prioritization aid, not a probability of compromise.
 
 \begin{table}[htbp]
 \centering
@@ -146,7 +146,7 @@ Latency & 10 trials; median 66.091 ms; p95 84.382 ms & Local Windows prototype m
 \end{tabularx}
 \end{table}
 
-Raw baseline scans for Checkov, KICS, and Trivy are retained, but this paper makes no broad superiority claim. Comparative metrics require validated semantic mappings for the compared policy instances.
+For RQ2, the prototype presents each finding with a stable policy ID, severity, risk deduction, control reference, and remediation guidance, demonstrating the intended explainability workflow. Raw baseline scans for Checkov, KICS, and Trivy are retained, but this paper makes no broad superiority claim. Comparative metrics require validated semantic mappings for the compared policy instances.
 
 \section{Controlled Remediation Guidance Validation}
 Thirty positive policy instances were copied into before/after cases. For each target case, a manually prepared remediation was applied to the corresponding configuration, after which CloudGuard re-scanned the modified configuration: public access was restricted, encryption was enabled, unrestricted CIDRs were narrowed, and wildcard actions were replaced with a specific action. All 30 cases passed the recorded structural check and all 30 target violations disappeared on re-scan. Native Terraform and CloudFormation validators were unavailable, so Gate 1 is a structural integrity check. The result measures controlled remediation guidance clearance and does not establish automatic repair capability.
@@ -164,7 +164,7 @@ The current package does not contain a human-participant study, production confi
 A larger study should add manually reviewed Terraform and CloudFormation examples while preserving policy-instance ground truth. The same files should be scanned by CloudGuard, Checkov, KICS, and Trivy using a published normalized mapping. Ranking relevance should be assigned before any system ranking is shown. Remediation cases should use native Terraform and CloudFormation validators. Any developer study requires consent and appropriate oversight.
 
 \section{Conclusion}
-CloudGuard is a compact, explainable AWS IaC analyzer ready for demonstration and reproducible synthetic evaluation. Its current strengths are transparency, stable policy IDs, visible deductions, local file analysis, generated metrics, controlled remediation guidance checks, and component-sensitivity results. The benchmark supports an honest prototype evaluation, not a broad production-accuracy claim. The ranking value is a consistency check against the predefined rubric, not independent ranking-quality evidence. A conference submission should preserve this evidence boundary, use the venue's official template, and attach the repository and raw artifacts.
+CloudGuard is a compact, explainable AWS IaC analyzer ready for demonstration and reproducible synthetic evaluation. Its current strengths are transparency, stable policy IDs, visible deductions, local file analysis, generated metrics, controlled remediation guidance checks, and component-sensitivity results. The benchmark supports an honest prototype evaluation, not a broad production-accuracy claim. The ranking value is a consistency check against the predefined rubric, not independent ranking-quality evidence. These results support CloudGuard as a reproducible prototype for AWS IaC policy analysis while leaving broader comparative and deployment claims for future evaluation.
 
 \begin{thebibliography}{7}
 \bibitem{minna2026automated} F.~Minna, A.~Blaise, K.~Tuma, and F.~Massacci, ``Automated analysis of security policy violations in Helm charts,'' \emph{IEEE Trans. Dependable and Secure Computing}, vol.~23, no.~2, pp. 2519--2533, 2026, doi: 10.1109/TDSC.2025.3628213.
