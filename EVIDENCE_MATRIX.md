@@ -10,12 +10,13 @@
 | Trivy comparison | Complete for 60 mapped instances | `results/detection/trivy_metrics.json` | Yes, synthetic benchmark only |
 | Two-reviewer agreement | Complete, subject to documenting independent collection | `annotations/expert_1.csv`, `expert_2.csv`, `results/annotations/agreement.json` | Yes, if the collection process was independent |
 | NDCG@10 severity baseline | Complete | `results/ranking/metrics.json` | Yes, as a derived baseline |
-| Remediation clearance and gates | Pending | `experiments/remediation/` | No |
+| Remediation clearance and prototype gates | Complete with limitations | `results/remediation/remediation_results.csv` | Yes, as controlled replacement evidence; not automatic repair or native syntax validation |
 | CloudGuard latency | Complete for prototype | `results/latency/cloudguard.csv` and `metrics.json` | Yes, with machine details |
-| Ablation study | Pending | `experiments/ablation/` | No |
+| Leave-one-policy-out ablation | Complete with limitations | `results/ablation/summary.csv` | Yes, synthetic component-sensitivity evidence |
 | Human developer study | Not conducted | none | No |
 
 The historical claims of 120 configurations, 840 annotations, 318 violations,
 κ=0.92, NDCG@10=0.916, and remediation percentages are not supported by this
-repository and must remain removed from the conference paper until genuinely
-reproduced.
+repository and remain excluded from the conference paper. The current NDCG
+value is severity-derived, the reviewer agreement is valid only if the reviews
+were collected independently, and the remediation gates are prototype checks.

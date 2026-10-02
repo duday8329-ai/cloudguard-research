@@ -28,7 +28,7 @@ def main() -> None:
     recall = matrix["tp"] / (matrix["tp"] + matrix["fn"]) if matrix["tp"] + matrix["fn"] else 0.0
     f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
     source = truth[0].get("annotation_source", "project_team_predefined_policy_criteria") if truth else "unknown"
-    result = {"analyzer": "cloudguard", "benchmark_status": "reviewer_consensus_synthetic_benchmark", "annotation_source": source, "truth_file": truth_name, "labelled_policy_instances": len(truth), "confusion_matrix": matrix, "precision": round(precision, 4), "recall": round(recall, 4), "f1": round(f1, 4)}
+    result = {"analyzer": "cloudguard", "benchmark_status": "reviewer_consensus_synthetic_benchmark", "annotation_source": source, "truth_file": Path(truth_name).as_posix(), "labelled_policy_instances": len(truth), "confusion_matrix": matrix, "precision": round(precision, 4), "recall": round(recall, 4), "f1": round(f1, 4)}
     output = ROOT / "results" / "cloudguard" / "metrics.json"
     output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))

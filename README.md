@@ -9,10 +9,12 @@ Repository URL: https://github.com/duday8329-ai/cloudguard-research
 
 The included benchmark is a **50-manifest project-team synthetic mutation
 benchmark** containing 70 labelled policy-instance pairs. It is a reproducible
-engineering evaluation of the current prototype, not a claim of independent
-conference evidence. The repository records unavailable experiments explicitly;
-it does not invent expert annotation, baseline output, ranking judgments, or
-remediation success.
+engineering evaluation of the current prototype, not a production
+generalization study. Two reviewer files and their consensus are included;
+report reviewer agreement only if the reviews were actually completed
+independently. The NDCG result is severity-derived, remediation is controlled
+replacement rather than automatic repair, native IaC validators were
+unavailable, and no human study was conducted.
 
 ## Reproduce the included sanity run
 
@@ -30,6 +32,18 @@ with `python scripts/summarize_baselines.py`. The summary intentionally stops
 before comparative scoring until semantic policy-SID mappings are validated.
 Then run `python scripts/score_baselines.py` to generate normalized predictions
 and mapped precision, recall, F1, coverage, and confusion matrices.
+
+To regenerate the additional evidence artifacts after the benchmark and
+reviewer files are frozen:
+
+```text
+python scripts/calculate_annotation_agreement.py
+python scripts/calculate_metrics.py annotations/reviewer_consensus.csv
+python scripts/run_ranking_evaluation.py
+python scripts/run_remediation_experiment.py
+python scripts/run_ablation.py
+python scripts/validate_package.py
+```
 
 ## Repository layout
 

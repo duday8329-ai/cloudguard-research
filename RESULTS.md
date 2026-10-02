@@ -3,15 +3,16 @@
 ## Evidence status
 
 This file is generated from the included 50-manifest project-team synthetic
-mutation benchmark. It is **not complete conference evidence** and must not be
-substituted for a larger benchmark, independent annotations, ranking, or
-remediation experiments.
+mutation benchmark. It is reproducible prototype evidence, but it is **not a
+production generalization study**. The ranking result is a severity-derived
+baseline, remediation uses controlled replacements, native IaC validators were
+unavailable, and no human-participant study was conducted.
 
 ## Included sanity run
 
 - Manifests: 50
 - Labelled policy instances: 70
-- Annotation source: project team using predefined policy criteria
+- Annotation source: two reviewer files merged into consensus; synthetic cases
 - Analyzer: CloudGuard prototype rules only
 
 ## Detection sanity check
@@ -27,7 +28,7 @@ remediation experiments.
 These values are expected to be optimistic because the cases were created to
 exercise the same limited rules as the prototype. They are useful as a
 reproducible synthetic mutation study, not as a generalization claim about
-production AWS IaC. Regenerate with `python scripts/reproduce_all.py`.
+production AWS IaC.
 
 ## Reviewer agreement
 
@@ -117,9 +118,15 @@ the comparison table below. Unmatched rules are excluded.
 
 Metrics are computed from normalized findings and the frozen policy-instance labels. Coverage excludes policy/format pairs for which the tool has no validated equivalent rule. These are synthetic mutation benchmark results and are not production generalization evidence.
 
-## Not yet measured
+## Evidence boundary
 
-No independent annotation agreement, NDCG, remediation success rate, gate
-validation, ablation, or human-subject study is reported because the required
-raw evidence is not present. Baseline comparison is limited to the mapped
-synthetic policy instances described above.
+The repository now contains measured artifacts for reviewer agreement,
+severity-derived ranking, controlled remediation clearance, and leave-one-
+policy-out ablation. These results are reportable only with the limitations
+stated above and in `EVIDENCE_MATRIX.md`.
+
+No human-participant study was conducted. The package does not claim a
+developer usability result, independent expert study, automatic repair, or
+native Terraform/CloudFormation syntax validation. Historical claims such as
+120 manifests, 840 annotations, 318 violations, kappa 0.92, NDCG@10 0.916,
+and 96% remediation remain unsupported and are excluded.
