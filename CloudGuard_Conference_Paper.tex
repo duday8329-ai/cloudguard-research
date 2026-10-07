@@ -15,6 +15,7 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc}
+\usepackage[hidelinks]{hyperref}
 
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \definecolor{codebg}{rgb}{0.97,0.97,0.97}
@@ -346,10 +347,10 @@ CloudGuard is a compact, explainable AWS IaC analyzer ready for demonstration an
 \begin{thebibliography}{11}
 \bibitem{minna2026automated} F.~Minna, A.~Blaise, K.~Tuma, and F.~Massacci, ``Automated analysis of security policy violations in Helm charts,'' \emph{IEEE Trans. Dependable and Secure Computing}, vol.~23, no.~2, pp. 2519--2533, 2026, doi: 10.1109/TDSC.2025.3628213.
 \bibitem{awswell} Amazon Web Services, ``AWS Well-Architected Framework: Security Pillar,'' \url{https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html}.
-\bibitem{s3public} Amazon Web Services, ``Blocking public access to your Amazon S3 storage,'' \url{https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html}.
-\bibitem{rdsnetwork} Amazon Web Services, ``Working with a DB instance in a VPC,'' \url{https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html}.
-\bibitem{sg-rules} Amazon Web Services, ``Security group rules for your VPC,'' \url{https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html}.
-\bibitem{iam-action} Amazon Web Services, ``IAM JSON policy elements: Action,'' \url{https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_action.html}.
+\bibitem{s3public} Amazon Web Services, ``Blocking public access to your Amazon S3 storage,'' \href{https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html}{AWS S3 public-access guide}.
+\bibitem{rdsnetwork} Amazon Web Services, ``Working with a DB instance in a VPC,'' \href{https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html}{AWS RDS VPC guide}.
+\bibitem{sg-rules} Amazon Web Services, ``Security group rules for your VPC,'' \href{https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html}{AWS security-group guide}.
+\bibitem{iam-action} Amazon Web Services, ``IAM JSON policy elements: Action,'' \href{https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_action.html}{AWS IAM Action guide}.
 \bibitem{checkov} Bridgecrew, ``Checkov Documentation,'' \url{https://www.checkov.io/}.
 \bibitem{kics} Checkmarx, ``KICS Documentation,'' \url{https://docs.kics.io/}.
 \bibitem{trivy} Aqua Security, ``Trivy Documentation,'' \url{https://trivy.dev/}.
