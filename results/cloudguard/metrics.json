@@ -1,8 +1,8 @@
 {
   "analyzer": "cloudguard",
   "benchmark_status": "reviewer_consensus_synthetic_benchmark",
-  "annotation_source": "two_reviewer_consensus",
-  "truth_file": "annotations/reviewer_consensus.csv",
+  "annotation_source": "project_team_predefined_policy_criteria",
+  "truth_file": "annotations/consensus.csv",
   "labelled_policy_instances": 70,
   "confusion_matrix": {
     "tp": 30,

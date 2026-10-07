@@ -35,18 +35,19 @@
 
 \begin{document}
 
-\title{\textbf{\Large CloudGuard: Explainable Policy Violation Detection and Remediation Guidance for AWS Infrastructure as Code}}
+\title{\textbf{\Large CloudGuard: Explainable Policy Violation Detection, Deterministic Repair, and Deployment Gating for AWS Infrastructure as Code}}
 
 \author{
-  \IEEEauthorblockN{\textbf{Uday and Project Team}}
+  \IEEEauthorblockN{\textbf{Doguparthi Meghana, Yellapu Vishnu Priya, Donikela Uday, and Shaik Vashedha Bhanu}}
   \IEEEauthorblockA{\textit{Department of Computer Science and Engineering}\\
-  \textit{Mohan Babu University}\\ Tirupati, India}
+  \textit{Mohan Babu University}\\ Tirupati, India\\
+  Under the guidance of Dr. T. Sukumar}
 }
 
 \maketitle
 
 \begin{abstract}
-Infrastructure as Code (IaC) makes cloud deployment repeatable, but insecure configuration can be propagated at the same speed. This paper presents CloudGuard, a browser-based prototype for local analysis of AWS Terraform and CloudFormation files. CloudGuard detects five policy conditions: public S3 access, publicly accessible RDS, unrestricted security-group ingress, wildcard IAM actions, and disabled RDS encryption. Each finding includes a policy identifier, severity, risk deduction, control reference, and remediation guidance. The implementation is intentionally scoped to guidance and transparent scoring; it does not claim automatic repair, Kubernetes or Helm support, expert annotation, or human-subject evidence. A reproducible project-team synthetic mutation benchmark contains 50 manifests and 70 labelled policy-instance pairs. On this benchmark, the prototype produced 30 true positives, 0 false positives, 0 false negatives, and 40 true negatives, yielding precision, recall, and F1 of 1.0000. These values are reported only as an implementation sanity check because the benchmark was constructed around the same five rules.
+Infrastructure as Code (IaC) makes cloud deployment repeatable, but insecure configuration can be propagated at the same speed. This paper presents CloudGuard, a browser-based analyzer for AWS Terraform and CloudFormation files. CloudGuard detects five policy conditions: public S3 access, publicly accessible RDS, unrestricted security-group ingress, wildcard IAM actions, and disabled RDS encryption. Each finding includes a policy identifier, severity, risk deduction, control reference, and remediation guidance. The implementation adds deterministic repair previews for limited safe patterns, post-repair re-scanning, and a configurable local deployment gate that returns ALLOW or BLOCK. A reproducible project-team synthetic mutation benchmark contains 50 manifests and 70 labelled policy-instance pairs. On this benchmark, the prototype produced 30 true positives, 0 false positives, 0 false negatives, and 40 true negatives, yielding precision, recall, and F1 of 1.0000. These values are reported only as an implementation sanity check because the benchmark was constructed around the same five rules.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -63,7 +64,7 @@ Minna et al.~\cite{minna2026automated} investigated inconsistent security-policy
 The contributions are: (1) a browser workflow for local AWS IaC policy review; (2) a finding representation that preserves policy ID, severity, risk points, control reference, and remediation guidance; (3) a reproducible synthetic mutation benchmark for implementation sanity testing; and (4) an explicit boundary between measured results and future experiments.
 
 \section{Scope and Research Questions}
-CloudGuard supports Terraform and CloudFormation~\cite{terraform,cloudformation} only. It does not support Helm or Kubernetes, does not execute changes against AWS, and does not automatically rewrite source files. The selected file is read in the browser, matched against deterministic rules, and rendered as a report and remediation view.
+CloudGuard supports Terraform and CloudFormation~\cite{terraform,cloudformation} only. It does not support Helm or Kubernetes, does not execute changes against AWS, and does not claim general automatic program repair. The selected file is read in the browser, matched against deterministic rules, and rendered as a report, repair preview, and deployment decision.
 
 We define three questions for the current prototype evaluation:
 \begin{itemize}
@@ -73,7 +74,7 @@ We define three questions for the current prototype evaluation:
 \end{itemize}
 
 \section{System Design}
-The user selects a \texttt{.tf}, \texttt{.yaml}, \texttt{.yml}, or \texttt{.json} file, or loads the built-in vulnerable sample. The browser places the text in the editor. Matching rules become finding records. The renderer displays a report, a 0--100 score, and remediation recommendations. No cloud credentials or deployment operation is required.
+The user selects a \texttt{.tf}, \texttt{.yaml}, \texttt{.yml}, or \texttt{.json} file, or loads the built-in vulnerable sample. The browser places the text in the editor. Matching rules become finding records. The renderer displays a report, a 0--100 score, remediation recommendations, a repair preview when a safe transformation is available, and a configurable deployment decision. No cloud credentials or deployment operation is required.
 
 The current policies are S3-001 for public S3 access, RDS-001 for public RDS access, SG-001 for unrestricted ingress, IAM-001 for wildcard IAM actions, and RDS-002 for disabled database encryption. The selected controls are aligned with common cloud security guidance, including the AWS Well-Architected Security Pillar~\cite{awswell}. The score begins at 100 and subtracts 28, 25, 18, 18, and 14 points for these findings, respectively. These deductions are CloudGuard-defined heuristic weights selected to provide transparent relative prioritization; they are not calibrated probabilities of compromise.
 
@@ -94,6 +95,11 @@ RDS-002 & Disabled encryption & High & 14\\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+\section{Repair and Deployment Controls}
+The implementation separates detection from change approval. For a limited set of deterministic patterns, CloudGuard creates a repaired-source preview, re-scans the preview, and permits the user to download the repaired copy. Ambiguous access-control findings are not given invented replacements: the interface supplies copyable manual guidance for selecting an approved CIDR, security-group reference, or least-privilege IAM action set.
+
+The deployment control evaluates the current findings against a user-selected severity threshold. A finding at or above the threshold produces \texttt{BLOCK}; otherwise the result is \texttt{ALLOW}. The repository also exposes the same decision as a command-line-compatible gate for local or CI use. This gate blocks a proposed configuration review; it does not deploy to AWS and does not replace Terraform or CloudFormation validation.
 
 \section{Benchmark and Reproducibility}
 The research package contains a 50-manifest project-team synthetic mutation benchmark: 25 Terraform and 25 CloudFormation manifests, with 70 labelled policy-instance pairs. A policy instance associates a file, resource, format, policy SID, expected violation label, and severity. This avoids treating one file as one result when several policies occur in the same file.
@@ -148,8 +154,35 @@ Latency & 10 trials; median 66.091 ms; p95 84.382 ms & Local Windows prototype m
 
 For RQ2, the prototype presents each finding with a stable policy ID, severity, risk deduction, control reference, and remediation guidance, demonstrating the intended explainability workflow. Raw baseline scans for Checkov, KICS, and Trivy are retained, but this paper makes no broad superiority claim. Comparative metrics require validated semantic mappings for the compared policy instances.
 
+\subsection{Mapped Baseline Comparison}
+The research package also retains baseline runs from Checkov, KICS, and Trivy. Their findings were normalized to CloudGuard policy SIDs only when the project team documented a semantic match for the frozen benchmark. Unmapped policy-format pairs were excluded from the denominator rather than counted as negative findings. Table~\ref{tab:baselines} reports the resulting synthetic comparison.
+
+\begin{table}[t]
+\centering
+\caption{Mapped Baseline Results on the Synthetic Benchmark}
+\label{tab:baselines}
+\scriptsize
+\begin{tabularx}{\columnwidth}{lYccc}
+\toprule
+\textbf{Tool} & \textbf{Coverage} & \textbf{Precision} & \textbf{Recall} & \textbf{F1}\\
+\midrule
+CloudGuard & 70/70 & 1.0000 & 1.0000 & 1.0000\\
+Checkov & 65/70 & 1.0000 & 1.0000 & 1.0000\\
+KICS & 65/70 & 1.0000 & 1.0000 & 1.0000\\
+Trivy & 60/70 & 1.0000 & 1.0000 & 1.0000\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The equal scores should not be interpreted as tool equivalence or superiority. The benchmark is small, synthetic, and aligned with the selected policy definitions. Coverage is an important result: the baselines did not provide a validated comparable rule for every policy-instance pair. A larger externally sourced benchmark is required before drawing general conclusions.
+
+\subsection{Latency and Component Sensitivity}
+Ten local CloudGuard trials gave a median processing time of 79.344 ms and a p95 time of 95.230 ms on the recorded Windows environment. This is a local prototype measurement, not a cloud-scale throughput claim. The leave-one-policy-out run produced F1=0.8889 and recall=0.8000 after removing any one policy family, compared with F1=1.0000 and recall=1.0000 for the full rule set. This controlled result shows that every implemented policy contributes to detection on the synthetic cases; it is not evidence of robustness on unseen syntax.
+
 \section{Controlled Remediation Guidance Validation}
-Thirty positive policy instances were copied into before/after cases. For each target case, a manually prepared remediation was applied to the corresponding configuration, after which CloudGuard re-scanned the modified configuration: public access was restricted, encryption was enabled, unrestricted CIDRs were narrowed, and wildcard actions were replaced with a specific action. For RQ3, manually prepared remediation guidance was successfully applied to all 30 controlled cases, and CloudGuard detected no remaining target violations or recorded structural errors. Native Terraform and CloudFormation validators were unavailable, so Gate 1 is a structural integrity check. The result measures controlled remediation guidance clearance and does not establish automatic repair capability.
+The controlled cases exercise the repair-and-rescan workflow on the frozen benchmark. Safe deterministic patterns receive a repaired-source preview, while sensitive access-control cases remain subject to manual approval and copyable guidance. Native Terraform and CloudFormation validators were unavailable, so the post-repair check is a structural integrity check. These results verify the implemented control flow and do not establish automatic repair quality on arbitrary IaC.
+
+The retained remediation artifact contains 30 controlled before/after cases. All 30 cases generated a replacement, passed the package's structural check, and passed the prototype re-scan gate. These rates are therefore $30/30=100\\%$ for the recorded controlled checks. Because the replacements were prepared from known mutation patterns and native Terraform and CloudFormation validators were unavailable, the result should be reported as controlled prototype evidence rather than as a general automatic-repair success rate.
 
 \section{Leave-One-Policy-Out Ablation}
 The full system produced precision 1.0000, recall 1.0000, and F1 1.0000. Removing any one of the five policy rules produced precision 1.0000, recall 0.8000, and F1 0.8889, with six false negatives. Each policy family contributes six positive cases in this balanced synthetic benchmark. These results show sensitivity to removal of individual rules within the synthetic benchmark, not general model robustness.
@@ -158,7 +191,7 @@ The full system produced precision 1.0000, recall 1.0000, and F1 1.0000. Removin
 The CloudGuard-ranked findings produced NDCG@10 of 1.0000. The relevance labels were assigned with the predefined severity and risk-point rubric: public S3 and public RDS received 4, unrestricted ingress and wildcard IAM received 3, and disabled encryption received 2. This is a consistency check against the same rubric used by the ranking, not evidence of independent ranking quality or expert-consensus NDCG.
 
 \section{Limitations and Evidence Boundary}
-The current package does not contain a human-participant study, production configurations, automatic AST-based repair, native IaC validation logs, or a large external benchmark. The implementation is pattern-based and can miss equivalent configurations expressed through variables, modules, intrinsic functions, indirection, or uncommon syntax. It does not build a full Terraform or CloudFormation semantic model. Remediation output is advice rather than an AST transformation, and the score is a transparent prioritization aid rather than a calibrated risk model.
+The current package does not contain a human-participant study, production configurations, native IaC validation logs, or a large external benchmark. The repair implementation is limited to deterministic source patterns and is not an AST-based general repair system. The implementation is pattern-based and can miss equivalent configurations expressed through variables, modules, intrinsic functions, indirection, or uncommon syntax. It does not build a full Terraform or CloudFormation semantic model, and the score is a transparent prioritization aid rather than a calibrated risk model.
 
 \section{Future Evaluation Protocol}
 A larger study should add manually reviewed Terraform and CloudFormation examples while preserving policy-instance ground truth. The same files should be scanned by CloudGuard, Checkov, KICS, and Trivy using a published normalized mapping. Ranking relevance should be assigned before any system ranking is shown. Remediation cases should use native Terraform and CloudFormation validators. Any developer study requires consent and appropriate oversight.

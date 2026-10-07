@@ -18,8 +18,10 @@ IaC formats.
 * RQ4: Can remediation quality and ranking quality be evaluated with retained
   before/after configurations and independently assigned relevance labels?
 
-RQ4 is a planned experiment in this repository. It must not be reported as a
-completed result until the required raw artifacts exist.
+RQ4 is divided into controlled prototype checks and stronger independent
+experiments. The retained artifacts support a severity-derived ranking baseline
+and controlled remediation checks; they do not support expert-consensus ranking
+quality or native IaC validation claims.
 
 ## Benchmark and unit of analysis
 
@@ -64,13 +66,14 @@ similar.
 ## Ranking, remediation, and latency
 
 Ranking requires independently assigned relevance values for each finding and a
-stored ordering seed. Report NDCG@10 only from those labels. Remediation requires
-the original file, generated patch, syntax validation, re-scan result, gate
-outcomes, and failure reason. Report clearance and validation rates only from
-those retained cases. Latency is measured by repeated local runs and reported
-with sample count, median, p95, machine description, and tool version. The
-current package measures CloudGuard latency only; ranking and remediation remain
-pending.
+stored ordering seed. The current NDCG artifact is a severity-derived baseline,
+not expert-consensus ranking evidence. Remediation requires the original file,
+generated replacement, structural validation, re-scan result, gate outcomes,
+and failure reason. The retained 30-case artifact supports controlled
+prototype clearance reporting, but native Terraform and CloudFormation
+validation is unavailable. Latency is measured by repeated local runs and
+reported with sample count, median, p95, machine description, and tool version.
+The current package measures CloudGuard latency only.
 
 ## Reproducibility and limitations
 

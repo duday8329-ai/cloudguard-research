@@ -14,7 +14,10 @@ generalization study. Two reviewer files and their consensus are included as an
 audit trail, but independent blinded collection was not documented, so kappa is
 not reported as inter-rater evidence. The NDCG result is severity-derived, remediation is controlled
 replacement rather than automatic repair, native IaC validators were
-unavailable, and no human study was conducted.
+unavailable, and no human study was conducted. The browser implementation also
+contains conservative deterministic repair previews for three safe patterns;
+those implementation smoke tests must not be confused with a general automatic
+repair study.
 
 ## Reproduce the included sanity run
 
@@ -82,7 +85,8 @@ The repair engine applies only deterministic edits for public S3 access, public
 RDS access, and disabled RDS encryption. IAM wildcard permissions and
 unrestricted network access without approved intent remain manual-review cases.
 The gate returns `ALLOW` or `BLOCK` for CI policy evaluation and does not deploy
-to AWS.
+to AWS. The implementation features are reported separately from benchmark
+results and do not establish production repair reliability.
 
 The updated review presentation is in
 `presentation/CloudGuard_MBU_Review_AutoRepair_Gate_Final.pptx`.
