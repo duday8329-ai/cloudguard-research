@@ -74,7 +74,7 @@ CloudGuard supports Terraform and CloudFormation~\cite{terraform,cloudformation}
 We define three questions for the current prototype evaluation:
 \begin{itemize}
   \item \textbf{RQ1:} Does the rule set identify the policy mutations represented in a frozen synthetic AWS IaC benchmark?
-  \item \textbf{RQ2:} Can findings be presented with explainable severity, risk points, and remediation guidance?
+  \item \textbf{RQ2:} Can the prototype present each finding with explainable severity, risk points, source evidence, and remediation guidance?
   \item \textbf{RQ3:} Can the controlled repair-and-re-scan workflow clear targeted policy violations while preserving a non-empty structurally checkable source copy?
 \end{itemize}
 
@@ -265,7 +265,7 @@ Latency & 10 trials; median 79.344 ms; p95 95.230 ms & Local Windows prototype m
 \end{tabularx}
 \end{table}
 
-For RQ2, the prototype presents each finding with a stable policy ID, severity, risk deduction, control reference, and remediation guidance, demonstrating the intended explainability workflow. Raw baseline scans for Checkov, KICS, and Trivy are retained, but this paper makes no broad superiority claim. Comparative metrics require validated semantic mappings for the compared policy instances.
+For RQ2, the implementation demonstrates an explainability workflow by presenting each finding with a stable policy ID, severity, source evidence, risk deduction, control reference, and remediation guidance. This is an interface and traceability demonstration, not a user-study measure of explainability or usability. Raw baseline scans for Checkov, KICS, and Trivy are retained, but this paper makes no broad superiority claim. Comparative metrics require validated semantic mappings for the compared policy instances.
 
 \subsection{Mapped Baseline Comparison}
 The research package also retains baseline runs from Checkov, KICS, and Trivy. Their findings were normalized to CloudGuard policy SIDs only when the project team documented a semantic match for the frozen benchmark. Unmapped policy-format pairs were excluded from the denominator rather than counted as negative findings. Table~\ref{tab:baselines} reports the resulting synthetic comparison.
