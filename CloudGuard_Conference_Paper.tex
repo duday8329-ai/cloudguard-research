@@ -138,6 +138,9 @@ POL\_AWS\_RDS\_ENCRYPTION & Disabled encryption & High & 14\\
 \label{fig:architecture}
 \end{figure}
 
+\subsection{Architecture Module Responsibilities}
+The architecture is organized into five responsibilities. The input module accepts a local Terraform or CloudFormation file and preserves the original text. The policy module applies the five deterministic predicates and creates stable SID-level finding records. The evidence module attaches the matched source condition, resource context, severity, control reference, and heuristic deduction. The guidance module presents a controlled repair preview for supported safe patterns or copyable manual guidance for ambiguous cases, then re-scans a separate copy. Finally, the local policy gate evaluates the resulting findings against the configured severity threshold and returns \texttt{ALLOW} or \texttt{BLOCK}. These modules are logical responsibilities within the browser prototype, not independently deployed services.
+
 \section{Repair and Local Policy Controls}
 The implementation separates detection from change approval. For a limited set of source patterns, CloudGuard creates a controlled deterministic repair preview, re-scans the preview, and permits the user to download the repaired copy. Ambiguous access-control findings are not given invented replacements: the interface supplies copyable manual guidance for selecting an approved CIDR, security-group reference, or least-privilege IAM action set.
 
