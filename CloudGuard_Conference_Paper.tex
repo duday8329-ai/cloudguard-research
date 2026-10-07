@@ -88,7 +88,7 @@ Tirupati, Andhra Pradesh, India\\
 \maketitle
 
 \begin{abstract}
-Infrastructure as Code (IaC) makes cloud deployment repeatable, but insecure configuration can be propagated at the same speed. This paper presents CloudGuard, a browser-based analyzer for Terraform and CloudFormation files that define AWS resources, with an emphasis on traceable policy-instance analysis. CloudGuard detects five policy conditions: public S3 access, publicly accessible RDS, unrestricted security-group ingress, wildcard IAM actions, and disabled RDS encryption. Each finding includes a policy identifier, severity, source evidence, heuristic risk deduction, control reference, and remediation guidance. The system also provides controlled repair previews for limited safe patterns, post-repair re-scanning, and a configurable local policy gate. A reproducible project-team synthetic mutation benchmark contains 50 manifests and 70 labelled policy-instance pairs. On this benchmark, the prototype produced 30 true positives, 0 false positives, 0 false negatives, and 40 true negatives, yielding precision, recall, and F1 of 1.0000. These values are reported only as a synthetic implementation sanity result because the benchmark was constructed around the same five rules.
+Infrastructure as Code (IaC) makes cloud deployment repeatable, but insecure configuration can be propagated at the same speed. This paper presents CloudGuard, a browser-based analyzer for Terraform and CloudFormation files that define AWS resources and focuses on traceable policy-instance analysis. CloudGuard detects five policy conditions: public S3 access, publicly accessible RDS, unrestricted security-group ingress, wildcard IAM actions, and disabled RDS encryption. Each finding includes a policy identifier, severity, source evidence, heuristic risk deduction, control reference, and remediation guidance. It also provides controlled repair previews for limited safe patterns, post-repair re-scanning, and a configurable local policy gate. A reproducible project-team synthetic mutation benchmark contains 50 manifests and 70 labelled policy-instance pairs. On this benchmark, the prototype produced 30 true positives, 0 false positives, 0 false negatives, and 40 true negatives, yielding precision, recall, and F1 of 1.0000. These values are reported only as a synthetic implementation sanity result because the benchmark was constructed around the same five rules.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -102,7 +102,7 @@ CloudGuard addresses this traceability problem with a small, inspectable AWS IaC
 
 Minna et al.~\cite{minna2026automated} investigated inconsistent security-policy analysis and policy mapping across analyzers for Helm charts in Kubernetes environments. CloudGuard studies the related traceability problem for AWS Terraform and CloudFormation, without implementing Helm or Kubernetes support.
 
-The contributions are: (1) a traceable policy-instance representation for local AWS IaC review; (2) an explainable finding workflow that preserves policy ID, severity, source evidence, risk points, control reference, and remediation guidance; (3) a reproducible synthetic mutation benchmark and cross-tool normalization procedure for implementation sanity testing; and (4) controlled repair previews and local policy gating presented as supporting engineering controls rather than general repair claims.
+The contributions are: (1) a traceable policy-instance representation for local AWS IaC review; (2) an explainable finding workflow that preserves policy ID, severity, source evidence, heuristic risk deductions, control reference, and remediation guidance; (3) a reproducible synthetic mutation benchmark and cross-tool normalization procedure for implementation sanity testing; and (4) controlled repair previews and local policy gating presented as supporting engineering controls rather than general repair claims.
 
 \section{Scope and Research Questions}
 CloudGuard supports Terraform and CloudFormation~\cite{terraform,cloudformation} only. It does not support Helm or Kubernetes, does not execute changes against AWS, and does not claim general automatic program repair. The selected file is read in the browser, matched against deterministic rules, and rendered as a report, repair preview, and local policy decision.
@@ -110,14 +110,14 @@ CloudGuard supports Terraform and CloudFormation~\cite{terraform,cloudformation}
 We define three questions for the current prototype evaluation:
 \begin{itemize}
   \item \textbf{RQ1:} Does the rule set identify the policy mutations represented in a frozen synthetic AWS IaC benchmark?
-  \item \textbf{RQ2:} Can the prototype present each finding with explainable severity, risk points, source evidence, and remediation guidance?
+  \item \textbf{RQ2:} Can the prototype present each finding with explainable severity, heuristic risk deductions, source evidence, and remediation guidance?
   \item \textbf{RQ3:} Can the controlled repair-and-re-scan workflow clear targeted policy violations while preserving a non-empty source copy that passes the structural check?
 \end{itemize}
 
 \section{System Design}
 The user selects a \texttt{.tf}, \texttt{.yaml}, \texttt{.yml}, or \texttt{.json} file, or loads the built-in vulnerable sample. The browser places the text in the editor. Matching rules become finding records. The renderer displays a report, a 0--100 score, remediation recommendations, a repair preview when a safe transformation is available, and a configurable local policy decision. No cloud credentials or deployment operation is required.
 
-The five implemented policy conditions are represented by POL\_AWS\_S3\_PUBLIC, POL\_AWS\_RDS\_PUBLIC, POL\_AWS\_SG\_UNRESTRICTED, POL\_AWS\_IAM\_WILDCARD, and POL\_AWS\_RDS\_ENCRYPTION. The selected controls are aligned with common cloud security guidance, including the AWS Well-Architected Security Pillar~\cite{awswell}. The score begins at 100 and subtracts 28, 25, 18, 18, and 14 points for these findings, respectively. These deductions are CloudGuard-defined heuristic weights selected to provide transparent relative prioritization; they are not calibrated probabilities of compromise.
+The implementation defines five policy conditions: POL\_AWS\_S3\_PUBLIC, POL\_AWS\_RDS\_PUBLIC, POL\_AWS\_SG\_UNRESTRICTED, POL\_AWS\_IAM\_WILDCARD, and POL\_AWS\_RDS\_ENCRYPTION. The selected controls are aligned with common cloud security guidance, including the AWS Well-Architected Security Pillar~\cite{awswell}. The score begins at 100 and subtracts 28, 25, 18, 18, and 14 points for these findings, respectively. These deductions are CloudGuard-defined heuristic weights selected to provide transparent relative prioritization; they are not calibrated probabilities of compromise.
 
 \subsection{Policy Semantics and Risk Computation}
 Each rule is evaluated as a predicate over a resource property. For example, an S3 finding is raised when a public ACL or equivalent public-read condition is present; an RDS finding is raised when \texttt{publicly\_accessible=true}; a security-group finding is raised when an ingress range contains \texttt{0.0.0.0/0}; an IAM finding is raised when an action is represented by a wildcard; and an encryption finding is raised when the required encryption property is explicitly disabled~\cite{s3public,rdsnetwork,sg-rules,iam-action}. A safe value produces a non-violation label for that policy instance. Missing or ambiguous properties are treated as unresolved in the implementation rather than silently converted into a violation.
@@ -209,7 +209,7 @@ F1=2\frac{\mathrm{Precision}\times\mathrm{Recall}}
 Baseline-analyzer metrics are calculated only after validated semantic mappings are established. Unmapped policy-format pairs are excluded from the mapped denominator and reported as coverage limitations, not as true negatives. Latency is measured over repeated local analyzer runs and reported with the environment and trial count.
 
 \subsection{Scanner Normalization Protocol}
-The baseline comparison uses a two-stage process. First, the native output of each scanner is retained without editing. Second, a normalization record maps a native rule identifier to a CloudGuard SID only when the rule's documented condition matches the CloudGuard predicate for the same resource and format. A name similarity is not sufficient evidence for a mapping. For example, a scanner rule about public S3 access can map to \texttt{POL\_AWS\_S3\_PUBLIC} only when its trigger condition corresponds to the public-access condition used by the benchmark. A rule that reports a broader or different condition remains unmapped.
+The baseline comparison uses a two-stage process. First, the native output of each scanner is retained without editing. Second, a normalization record maps a native rule identifier to a CloudGuard SID only when the rule's documented condition matches the CloudGuard predicate for the same resource and format. Name similarity alone is not sufficient evidence for a mapping. For example, a scanner rule about public S3 access can map to \texttt{POL\_AWS\_S3\_PUBLIC} only when its trigger condition corresponds to the public-access condition used by the benchmark. A rule that reports a broader or different condition remains unmapped.
 
 For each mapped instance, the normalized prediction is joined with the pre-existing ground-truth row using the tuple $\langle\text{file\_id},\text{resource\_id},\text{policy\_sid}\rangle$. The join produces TP, FP, FN, or TN. Coverage is computed separately as
 \begin{equation}
@@ -265,7 +265,7 @@ satisfies the safe encryption condition, so its expected label for
 \texttt{POL\_AWS\_RDS\_ENCRYPTION} is zero. The same source is then scanned by
 CloudGuard, Checkov, KICS, and Trivy. Native rule identifiers are mapped only
 when their conditions match the CloudGuard policy definition. Thus, the
-benchmark answer is determined before scanner output is scored.
+ground-truth label is determined before scanner output is scored.
 
 \begin{table}[t]
 \centering
