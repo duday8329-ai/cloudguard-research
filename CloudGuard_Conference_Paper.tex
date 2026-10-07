@@ -83,13 +83,13 @@ The user selects a \texttt{.tf}, \texttt{.yaml}, \texttt{.yml}, or \texttt{.json
 The current policies are POL\_AWS\_S3\_PUBLIC, POL\_AWS\_RDS\_PUBLIC, POL\_AWS\_SG\_UNRESTRICTED, POL\_AWS\_IAM\_WILDCARD, and POL\_AWS\_RDS\_ENCRYPTION. The selected controls are aligned with common cloud security guidance, including the AWS Well-Architected Security Pillar~\cite{awswell}. The score begins at 100 and subtracts 28, 25, 18, 18, and 14 points for these findings, respectively. These deductions are CloudGuard-defined heuristic weights selected to provide transparent relative prioritization; they are not calibrated probabilities of compromise.
 
 \subsection{Policy Semantics and Risk Computation}
-Each rule is evaluated as a predicate over a resource property. For example, an S3 finding is raised when a public ACL or equivalent public-read condition is present; an RDS finding is raised when \texttt{publicly\_accessible=true}; a security-group finding is raised when an ingress range contains \texttt{0.0.0.0/0}; an IAM finding is raised when an action is represented by a wildcard; and an encryption finding is raised when the required encryption property is explicitly disabled. A safe value produces a negative label for that policy instance. Missing or ambiguous properties are treated as unresolved in the implementation rather than silently converted into a violation.
+Each rule is evaluated as a predicate over a resource property. For example, an S3 finding is raised when a public ACL or equivalent public-read condition is present; an RDS finding is raised when \texttt{publicly\_accessible=true}; a security-group finding is raised when an ingress range contains \texttt{0.0.0.0/0}; an IAM finding is raised when an action is represented by a wildcard; and an encryption finding is raised when the required encryption property is explicitly disabled~\cite{s3public,rdsnetwork,sg-rules,iam-action}. A safe value produces a non-violation label for that policy instance. Missing or ambiguous properties are treated as unresolved in the implementation rather than silently converted into a violation.
 
 For a file containing findings $v_1,\ldots,v_n$, the displayed score is
 \begin{equation}
 S=\max\left(0,100-\sum_{i=1}^{n}w(v_i)\right),
 \end{equation}
-where $w(v_i)$ is the configured heuristic deduction for the policy family. The maximum operation prevents a negative display score. This design makes the reasoning inspectable: a reviewer can identify the finding, read its source evidence, and reproduce the deduction. The score is intentionally not interpreted as a probability, expected loss, or compliance percentage.
+where $w(v_i)$ is the configured heuristic deduction for the policy family. In the current browser implementation, the rule matcher emits at most one finding per policy SID for a file, so repeated text matches within the same policy family do not create repeated deductions. The maximum operation prevents a negative display score. This design makes the reasoning inspectable: a reviewer can identify the finding, read its source evidence, and reproduce the deduction. The score is intentionally not interpreted as a probability, expected loss, or compliance percentage.
 
 \subsection{Design Principles}
 The implementation follows four principles. First, each finding has a stable SID so that the user interface, benchmark labels, scanner mappings, and evaluation scripts refer to the same policy concept. Second, source evidence is shown alongside the finding, reducing the distance between a rule and the line or property that triggered it. Third, detection is separated from change approval: guidance can be displayed without implying that a repair is safe to apply automatically. Fourth, every decision is local and reversible. The user can inspect the input, preview a limited transformation, re-scan a copy, download it, or reject the proposed change without modifying cloud resources.
@@ -133,11 +133,11 @@ POL\_AWS\_RDS\_ENCRYPTION & Disabled encryption & High & 14\\
 \draw[arrow] (repair) -- (rescan);
 \draw[arrow] (rescan.east) -| (gate.south);
 \end{tikzpicture}
-\caption{CloudGuard workflow from source input to policy-gated review.}
+\caption{CloudGuard workflow from source input to local policy-gated review.}
 \label{fig:architecture}
 \end{figure}
 
-\section{Repair and Deployment Controls}
+\section{Repair and Local Policy Controls}
 The implementation separates detection from change approval. For a limited set of source patterns, CloudGuard creates a controlled deterministic repair preview, re-scans the preview, and permits the user to download the repaired copy. Ambiguous access-control findings are not given invented replacements: the interface supplies copyable manual guidance for selecting an approved CIDR, security-group reference, or least-privilege IAM action set.
 
 The local policy gate evaluates the current findings against a user-selected severity threshold. A finding at or above the threshold produces \texttt{BLOCK}; otherwise the result is \texttt{ALLOW}. The repository also exposes the same decision as a command-line-compatible gate for local or CI use. This gate blocks a proposed configuration review; it does not deploy to AWS and does not replace Terraform or CloudFormation validation.
@@ -344,6 +344,10 @@ CloudGuard is a compact, explainable AWS IaC analyzer ready for demonstration an
 \begin{thebibliography}{7}
 \bibitem{minna2026automated} F.~Minna, A.~Blaise, K.~Tuma, and F.~Massacci, ``Automated analysis of security policy violations in Helm charts,'' \emph{IEEE Trans. Dependable and Secure Computing}, vol.~23, no.~2, pp. 2519--2533, 2026, doi: 10.1109/TDSC.2025.3628213.
 \bibitem{awswell} Amazon Web Services, ``AWS Well-Architected Framework: Security Pillar,'' \url{https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html}.
+\bibitem{s3public} Amazon Web Services, ``Blocking public access to your Amazon S3 storage,'' \url{https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html}.
+\bibitem{rdsnetwork} Amazon Web Services, ``Working with a DB instance in a VPC,'' \url{https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html}.
+\bibitem{sg-rules} Amazon Web Services, ``Security group rules for your VPC,'' \url{https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html}.
+\bibitem{iam-action} Amazon Web Services, ``IAM JSON policy elements: Action,'' \url{https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_action.html}.
 \bibitem{checkov} Bridgecrew, ``Checkov Documentation,'' \url{https://www.checkov.io/}.
 \bibitem{kics} Checkmarx, ``KICS Documentation,'' \url{https://docs.kics.io/}.
 \bibitem{trivy} Aqua Security, ``Trivy Documentation,'' \url{https://trivy.dev/}.
