@@ -51,7 +51,7 @@
 \maketitle
 
 \begin{abstract}
-Infrastructure as Code (IaC) makes cloud deployment repeatable, but insecure configuration can be propagated at the same speed. This paper presents CloudGuard, a browser-based analyzer for AWS Terraform and CloudFormation files that emphasizes traceable policy-instance analysis. CloudGuard detects five policy conditions: public S3 access, publicly accessible RDS, unrestricted security-group ingress, wildcard IAM actions, and disabled RDS encryption. Each finding includes a policy identifier, severity, source evidence, risk deduction, control reference, and remediation guidance. Controlled repair previews are available for limited safe patterns, followed by re-scanning and a configurable local deployment gate that returns ALLOW or BLOCK. A reproducible project-team synthetic mutation benchmark contains 50 manifests and 70 labelled policy-instance pairs. On this benchmark, the prototype produced 30 true positives, 0 false positives, 0 false negatives, and 40 true negatives, yielding precision, recall, and F1 of 1.0000. These values are reported only as a synthetic implementation sanity result because the benchmark was constructed around the same five rules.
+Infrastructure as Code (IaC) makes cloud deployment repeatable, but insecure configuration can be propagated at the same speed. This paper presents CloudGuard, a browser-based analyzer for AWS Terraform and CloudFormation files that emphasizes traceable policy-instance analysis. CloudGuard detects five policy conditions: public S3 access, publicly accessible RDS, unrestricted security-group ingress, wildcard IAM actions, and disabled RDS encryption. Each finding includes a policy identifier, severity, source evidence, risk deduction, control reference, and remediation guidance. The system also provides controlled repair previews for limited safe patterns, post-repair re-scanning, and a configurable local policy gate. A reproducible project-team synthetic mutation benchmark contains 50 manifests and 70 labelled policy-instance pairs. On this benchmark, the prototype produced 30 true positives, 0 false positives, 0 false negatives, and 40 true negatives, yielding precision, recall, and F1 of 1.0000. These values are reported only as a synthetic implementation sanity result because the benchmark was constructed around the same five rules.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -239,12 +239,12 @@ The research package also retains baseline runs from Checkov, KICS, and Trivy. T
 
 \begin{table}[t]
 \centering
-\caption{Mapped Baseline Results on the Synthetic Benchmark}
+\caption{Coverage-led baseline comparison on the synthetic benchmark. Precision, recall, and F1 are secondary metrics on the mapped subset.}
 \label{tab:baselines}
 \scriptsize
 \begin{tabularx}{\columnwidth}{lYccc}
 \toprule
-\textbf{Tool} & \textbf{Coverage} & \textbf{Precision} & \textbf{Recall} & \textbf{F1}\\
+\textbf{Tool} & \textbf{Coverage} & \textbf{Mapped P} & \textbf{Mapped R} & \textbf{Mapped F1}\\
 \midrule
 CloudGuard & 70/70 & 1.0000 & 1.0000 & 1.0000\\
 Checkov & 65/70 & 1.0000 & 1.0000 & 1.0000\\
@@ -254,7 +254,7 @@ Trivy & 60/70 & 1.0000 & 1.0000 & 1.0000\\
 \end{tabularx}
 \end{table}
 
-The equal scores should not be interpreted as tool equivalence or superiority. The benchmark is small, synthetic, and aligned with the selected policy definitions. Coverage is an important result: the baselines did not provide a validated comparable rule for every policy-instance pair. A larger externally sourced benchmark is required before drawing general conclusions.
+Coverage is the primary comparison because it measures how many of the 70 labelled policy instances had a validated semantic mapping. The mapped precision, recall, and F1 values are secondary: they describe only the covered subset and therefore do not establish tool equivalence or superiority. The benchmark is small, synthetic, and aligned with the selected policy definitions. A larger externally sourced benchmark is required before drawing general conclusions.
 
 \begin{figure}[t]
 \centering
@@ -285,7 +285,7 @@ The equal scores should not be interpreted as tool equivalence or superiority. T
 \end{figure}
 
 \subsection{Latency and Component Sensitivity}
-Ten local CloudGuard trials gave a median processing time of 79.344 ms and a p95 time of 95.230 ms on the recorded Windows environment. This is a local prototype measurement, not a cloud-scale throughput claim. The leave-one-policy-out run produced F1=0.8889 and recall=0.8000 after removing any one policy family, compared with F1=1.0000 and recall=1.0000 for the full rule set. This controlled result shows that every implemented policy contributes to detection on the synthetic cases; it is not evidence of robustness on unseen syntax.
+Ten local CloudGuard trials gave a median processing time of 79.344 ms and a p95 time of 95.230 ms on the recorded Windows environment. This is a local prototype measurement, not a cloud-scale throughput claim. In the leave-one-policy-out run, removing any one policy family reduced F1 from 1.0000 to 0.8889 and recall from 1.0000 to 0.8000. This controlled result shows contribution within the synthetic cases, not robustness on unseen syntax.
 
 \section{Controlled Remediation Guidance Validation}
 The controlled cases exercise the repair-and-rescan workflow on the frozen benchmark. Safe source patterns receive a controlled deterministic repair preview, while sensitive access-control cases remain subject to manual approval and copyable guidance. Native Terraform and CloudFormation validators were unavailable, so the post-repair check is limited to a non-empty structural integrity check. These results verify the implemented control flow and do not establish automatic repair quality on arbitrary IaC.
@@ -296,7 +296,7 @@ The retained remediation artifact contains 30 controlled before/after cases. All
 The full system produced precision 1.0000, recall 1.0000, and F1 1.0000. Removing any one of the five policy rules produced precision 1.0000, recall 0.8000, and F1 0.8889, with six false negatives. Each policy family contributes six positive cases in this balanced synthetic benchmark. These results show sensitivity to removal of individual rules within the synthetic benchmark, not general model robustness.
 
 \section{Ranking Consistency Check}
-The CloudGuard-ranked findings produced NDCG@10 of 1.0000. The relevance labels were assigned with the predefined severity and risk-point rubric: public S3 and public RDS received 4, unrestricted ingress and wildcard IAM received 3, and disabled encryption received 2. This is a consistency check against the same rubric used by the ranking, not evidence of independent ranking quality or expert-consensus NDCG.
+As a rubric-consistency check, the CloudGuard-ranked findings produced NDCG@10 of 1.0000. The relevance labels were assigned with the predefined severity and risk-point rubric: public S3 and public RDS received 4, unrestricted ingress and wildcard IAM received 3, and disabled encryption received 2. Because the ranking and relevance labels use the same rubric, this result is not independent ranking-quality evidence and is not reported as expert-consensus NDCG.
 
 \section{Limitations and Evidence Boundary}
 The current package does not contain a human-participant study, production configurations, native IaC validation logs, or a large external benchmark. The repair implementation is limited to controlled source-pattern previews and is not an AST-based general repair system. The implementation is pattern-based and can miss equivalent configurations expressed through variables, modules, intrinsic functions, indirection, or uncommon syntax. It does not build a full Terraform or CloudFormation semantic model, and the score is a transparent prioritization aid rather than a calibrated risk model.
