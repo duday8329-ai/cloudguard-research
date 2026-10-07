@@ -11,6 +11,10 @@
 \usepackage{url}
 \usepackage{cite}
 \usepackage{microtype}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc}
 
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \definecolor{codebg}{rgb}{0.97,0.97,0.97}
@@ -96,6 +100,31 @@ RDS-002 & Disabled encryption & High & 14\\
 \end{tabularx}
 \end{table}
 
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  node distance=4pt and 5pt,
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=0.48cm, text width=1.36cm, font=\scriptsize, fill=blue!6},
+  decision/.style={draw, diamond, aspect=2.0, align=center, inner sep=1pt, font=\scriptsize, fill=orange!12},
+  arrow/.style={-{Latex[length=1.5mm]}, thick}
+]
+\node[box] (input) {Terraform /\\CloudFormation};
+\node[box, right=of input] (detect) {Policy\\detection};
+\node[box, right=of detect] (explain) {SID, severity,\\score, evidence};
+\node[box, right=of explain] (repair) {Repair preview\\or guidance};
+\node[decision, right=of repair] (gate) {ALLOW /\\BLOCK};
+\draw[arrow] (input) -- (detect);
+\draw[arrow] (detect) -- (explain);
+\draw[arrow] (explain) -- (repair);
+\draw[arrow] (repair) -- (gate);
+\node[box, below=5pt of repair, fill=green!8] (rescan) {Re-scan\\repaired copy};
+\draw[arrow] (repair) -- (rescan);
+\draw[arrow] (rescan.east) -| (gate.south);
+\end{tikzpicture}
+\caption{CloudGuard workflow from source input to policy-gated review.}
+\label{fig:architecture}
+\end{figure}
+
 \section{Repair and Deployment Controls}
 The implementation separates detection from change approval. For a limited set of deterministic patterns, CloudGuard creates a repaired-source preview, re-scans the preview, and permits the user to download the repaired copy. Ambiguous access-control findings are not given invented replacements: the interface supplies copyable manual guidance for selecting an approved CIDR, security-group reference, or least-privilege IAM action set.
 
@@ -118,7 +147,7 @@ For CloudGuard, each policy-instance prediction is compared with the expected vi
 F1=2\frac{\mathrm{Precision}\times\mathrm{Recall}}
 {\mathrm{Precision}+\mathrm{Recall}}.
 \end{equation}
-Baseline-analyzer metrics are reserved for future comparison after validated semantic mappings are established. Unmapped findings are not silently treated as negatives. Latency is measured over repeated local analyzer runs and reported with the environment and trial count.
+Baseline-analyzer metrics are calculated only after validated semantic mappings are established. Unmapped policy-format pairs are excluded from the mapped denominator and reported as coverage limitations, not as true negatives. Latency is measured over repeated local analyzer runs and reported with the environment and trial count.
 
 \begin{lstlisting}[language=bash,caption={Example insecure Terraform ingress configuration.},label={lst:insecure}]
 resource "aws_security_group" "bastion_ingress" {
@@ -130,6 +159,57 @@ resource "aws_security_group" "bastion_ingress" {
   }
 }
 \end{lstlisting}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  node distance=4pt,
+  step/.style={draw, rounded corners=2pt, align=center, minimum height=0.42cm, text width=2.45cm, font=\scriptsize, fill=blue!6},
+  arrow/.style={-{Latex[length=1.5mm]}, thick}
+]
+\node[step] (a) {Frozen benchmark files};
+\node[step, below=of a] (b) {Ground truth\\policy-instance labels};
+\node[step, below=of b] (c) {Raw scanner outputs};
+\node[step, below=of c] (d) {Rule-ID mapping\\to CloudGuard SID};
+\node[step, below=of d] (e) {Normalized predictions};
+\node[step, below=of e] (f) {TP, FP, FN, TN};
+\node[step, below=of f, fill=green!8] (g) {Precision, recall, F1, coverage};
+\draw[arrow] (a) -- (b);
+\draw[arrow] (b) -- (c);
+\draw[arrow] (c) -- (d);
+\draw[arrow] (d) -- (e);
+\draw[arrow] (e) -- (f);
+\draw[arrow] (f) -- (g);
+\end{tikzpicture}
+\caption{Reproducible benchmark calculation pipeline.}
+\label{fig:benchmark-pipeline}
+\end{figure}
+
+\subsection{Worked Policy-Instance Example}
+Consider Terraform file \texttt{tf\_006}, which contains
+\texttt{publicly\_accessible = true} and
+\texttt{storage\_encrypted = true}. The first value violates
+\texttt{POL\_AWS\_RDS\_PUBLIC}, so its expected label is one. The second value
+satisfies the safe encryption condition, so its expected label for
+\texttt{POL\_AWS\_RDS\_ENCRYPTION} is zero. The same source is then scanned by
+CloudGuard, Checkov, KICS, and Trivy. Native rule identifiers are mapped only
+when their conditions match the CloudGuard policy definition. Thus, the
+benchmark answer is determined before scanner output is scored.
+
+\begin{table}[t]
+\centering
+\caption{Worked Example for Terraform File \texttt{tf\_006}}
+\label{tab:worked-example}
+\scriptsize
+\begin{tabularx}{\columnwidth}{lXccccc}
+\toprule
+\textbf{Policy} & \textbf{Source condition} & \textbf{Truth} & \textbf{CG} & \textbf{CKV} & \textbf{KICS} & \textbf{Trivy}\\
+\midrule
+RDS public & \texttt{publicly\_accessible=true} & 1 & 1 & 1 & 1 & 1\\
+RDS encryption & \texttt{storage\_encrypted=true} & 0 & 0 & 0 & 0 & 0\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \section{Results}
 The CloudGuard sanity run generated 30 true positives, no false positives, no false negatives, and 40 true negatives over 70 policy-instance labels. Precision, recall, and F1 are all 1.0000. Because the mutation cases were designed to exercise the same five prototype rules, this result is expected to be optimistic. It demonstrates that the pipeline, labels, predictions, and metric generation work together; it does not demonstrate perfect performance on unseen AWS IaC.
@@ -147,7 +227,7 @@ Manifests & 50 & 25 Terraform + 25 CloudFormation synthetic mutations\\
 Policy instances & 70 & Project-team labels at policy-instance level\\
 TP / FP / FN / TN & 30 / 0 / 0 / 40 & Generated CloudGuard sanity matrix\\
 Precision / Recall / F1 & 1.0000 / 1.0000 / 1.0000 & Optimistic synthetic result; not generalization evidence\\
-Latency & 10 trials; median 66.091 ms; p95 84.382 ms & Local Windows prototype measurement\\
+Latency & 10 trials; median 79.344 ms; p95 95.230 ms & Local Windows prototype measurement\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -175,6 +255,34 @@ Trivy & 60/70 & 1.0000 & 1.0000 & 1.0000\\
 \end{table}
 
 The equal scores should not be interpreted as tool equivalence or superiority. The benchmark is small, synthetic, and aligned with the selected policy definitions. Coverage is an important result: the baselines did not provide a validated comparable rule for every policy-instance pair. A larger externally sourced benchmark is required before drawing general conclusions.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  bar width=10pt,
+  width=\columnwidth,
+  height=4.2cm,
+  ymin=0, ymax=1.05,
+  ylabel={Mapped coverage},
+  symbolic x coords={CloudGuard,Checkov,KICS,Trivy},
+  xtick=data,
+  x tick label style={font=\scriptsize, rotate=25, anchor=east},
+  y tick label style={font=\scriptsize},
+  ylabel style={font=\scriptsize},
+  nodes near coords,
+  nodes near coords style={font=\scriptsize},
+  every axis plot/.append style={fill=blue!55, draw=blue!75},
+  grid=major,
+  major grid style={draw=gray!20}
+]
+\addplot coordinates {(CloudGuard,1.0000) (Checkov,0.9286) (KICS,0.9286) (Trivy,0.8571)};
+\end{axis}
+\end{tikzpicture}
+\caption{Validated policy-instance coverage on the frozen benchmark.}
+\label{fig:coverage}
+\end{figure}
 
 \subsection{Latency and Component Sensitivity}
 Ten local CloudGuard trials gave a median processing time of 79.344 ms and a p95 time of 95.230 ms on the recorded Windows environment. This is a local prototype measurement, not a cloud-scale throughput claim. The leave-one-policy-out run produced F1=0.8889 and recall=0.8000 after removing any one policy family, compared with F1=1.0000 and recall=1.0000 for the full rule set. This controlled result shows that every implemented policy contributes to detection on the synthetic cases; it is not evidence of robustness on unseen syntax.
