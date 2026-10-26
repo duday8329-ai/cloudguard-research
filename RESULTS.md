@@ -33,8 +33,8 @@ production AWS IaC.
 ## CloudGuard latency measurement
 
 - Trials: 10
-- Median: 70.945 ms
-- p95: 152.006 ms
+- Median: 97.739 ms
+- p95: 125.570 ms
 - Environment: Windows-11-10.0.26300-SP0
 
 This is a local prototype measurement on the synthetic benchmark, not a
