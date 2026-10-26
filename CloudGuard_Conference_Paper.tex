@@ -142,9 +142,10 @@ Table~\ref{tab:policies} defines the complete policy surface evaluated in this p
 
 \begin{figure}[t]
 \centering
+\resizebox{\columnwidth}{!}{%
 \begin{tikzpicture}[
-  node distance=4pt and 5pt,
-  box/.style={draw, rounded corners=2pt, align=center, minimum height=0.48cm, text width=1.42cm, font=\scriptsize, fill=blue!6},
+  node distance=3pt and 3pt,
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=0.48cm, text width=1.32cm, font=\scriptsize, fill=blue!6},
   decision/.style={draw, diamond, aspect=2.0, align=center, inner sep=1pt, font=\scriptsize, fill=orange!12},
   arrow/.style={-{Latex[length=1.5mm]}, thick}
 ]
@@ -161,6 +162,7 @@ Table~\ref{tab:policies} defines the complete policy surface evaluated in this p
 \draw[arrow] (repair) -- (rescan);
 \draw[arrow] (rescan.east) -| (gate.south);
 \end{tikzpicture}
+}%
 \caption{CloudGuard workflow from source input to local policy-gated review.}
 \label{fig:architecture}
 \end{figure}
