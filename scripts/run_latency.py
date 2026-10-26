@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import csv
 import json
+import math
 import platform
 import statistics
 import subprocess
@@ -25,7 +26,8 @@ def main() -> None:
         rows.append({"analyzer": "cloudguard", "trial": trial, "elapsed_ms": round(elapsed_ms, 3)})
     values = [row["elapsed_ms"] for row in rows]
     ordered = sorted(values)
-    p95 = ordered[max(0, int(len(ordered) * 0.95) - 1)]
+    # Nearest-rank p95: with ten observations, the maximum is selected.
+    p95 = ordered[math.ceil(0.95 * len(ordered)) - 1]
     with (output_dir / "cloudguard.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=["analyzer", "trial", "elapsed_ms"])
         writer.writeheader()
