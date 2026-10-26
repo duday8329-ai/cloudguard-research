@@ -130,7 +130,7 @@ Each finding retains a stable SID, source evidence, severity, heuristic deductio
 \toprule
 \textbf{Policy ID} & \textbf{Condition} & \textbf{Severity} & \textbf{Points}\\
 \midrule
-POL\_AWS\_S3\_PUBLIC & Public S3 access & Critical & 28\\
+POL\_AWS\_S3\_PUBLIC & S3 public-ACL indicator & Critical & 28\\
 POL\_AWS\_RDS\_PUBLIC & RDS public-access flag enabled & Critical & 25\\
 POL\_AWS\_SG\_UNRESTRICTED & Unrestricted ingress & High & 18\\
 POL\_AWS\_IAM\_WILDCARD & Wildcard IAM actions & High & 18\\
@@ -322,7 +322,7 @@ Coverage denotes policy instances for which a validated semantic rule mapping ex
 Ten local CloudGuard trials gave a median processing time of 180.761 ms and a nearest-rank p95 time of 234.185 ms on Windows 11 with Python 3.13.15. Each trial timed \texttt{run\_cloudguard.py}, including scanning all 50 files and writing the prediction CSV; browser rendering was not timed. The script uses nearest-rank p95, $x_{\lceil0.95n\rceil}$ after sorting, so the ten-trial estimate selects the maximum and remains exploratory. Individual measurements are retained in \texttt{results/latency/cloudguard.csv}. Removing any one policy family reduced F1 from 1.0000 to 0.8889 and recall from 1.0000 to 0.8000.
 
 \section{Discussion}
-Within the frozen benchmark, the predicates reproduced the selected mutations and the metric pipeline was internally consistent. The perfect classification values are an implementation sanity result, not evidence of production accuracy; the coverage-led baseline table also does not establish superiority. The contribution is a traceability workflow that links a SID to evidence, severity, heuristic risk deduction, control reference, and guidance, not a measured usability result. The 30/30 remediation result covers controlled previews and re-scans only. Sustainability benefits, developer time, and energy use were not measured.
+Within the frozen benchmark, the predicates reproduced the selected mutations and the metric pipeline was internally consistent. The perfect classification values are an implementation sanity result, not evidence of production accuracy; the coverage-led baseline table also does not establish superiority. The contribution is a traceability workflow that links a SID to evidence, severity, heuristic risk deduction, control reference, and guidance, not a measured usability result. The 30/30 result refers to the offline source-replacement experiment and its structural and target-rule-absence checks, not to 30 browser repair previews. Sustainability benefits, developer time, and energy use were not measured.
 
 \subsection{Remediation Validation}
 The 30-case remediation experiment was performed by an offline script that applies predefined source-pattern replacements to positive synthetic benchmark cases. Each replacement is checked for structural integrity and for the absence of the target policy pattern after modification. This experiment is separate from the browser repair interface. The browser interface provides deterministic repair previews for public S3 access indicators, RDS public-access flags, and disabled RDS encryption; unrestricted ingress and wildcard IAM cases remain subject to manual review.
