@@ -94,7 +94,7 @@ Minna et al.~\cite{minna2026automated} investigated inconsistent security-policy
 The contributions are: (1) a traceable policy-instance representation for local AWS IaC review; (2) an explainable finding workflow that preserves policy ID, severity, source evidence, heuristic risk deductions, control reference, and remediation guidance; (3) a reproducible synthetic mutation benchmark and cross-tool normalization procedure for implementation sanity testing; and (4) controlled repair previews and local policy gating presented as supporting engineering controls rather than general repair claims. The objectives are limited to detecting five selected conditions, preserving this evidence chain, regenerating the retained benchmark metrics, and supporting cautious local review.
 
 \section{Related Work}
-CloudGuard is positioned among infrastructure-analysis tools and cloud security guidance rather than as a replacement for them. Prior work has surveyed IaC static analysis~\cite{chiari2022survey}, catalogued security smells~\cite{rahman2019sins}, studied risky infrastructure scripts~\cite{dai2020risky}, and examined architecture-level security practices~\cite{ntentos2022conformance}. These studies establish the importance of rule-based and structural analysis. Checkov, KICS, and Trivy provide established scanning approaches~\cite{checkov,kics,trivy}, while Minna et al.~\cite{minna2026automated} examine policy analysis for Helm charts. Adjacent project work has also considered AI-assisted cloud forensics and network-pentesting support~\cite{sukumar2026forensics,mishra2025pentest}; those studies address different evidence and operational settings rather than Terraform or CloudFormation policy instances. CloudGuard does not claim that existing tools lack evidence, severity, or remediation features; its narrower contribution is to combine a particular set of traceable records and local review steps for AWS Terraform and CloudFormation, then test that workflow on a small, auditable policy-instance benchmark.
+CloudGuard is positioned among infrastructure-analysis tools and cloud security guidance rather than as a replacement for them. Prior work has surveyed IaC static analysis~\cite{chiari2022survey}, catalogued security smells~\cite{rahman2019sins}, studied risky infrastructure scripts~\cite{dai2020risky}, and examined architecture-level security practices~\cite{ntentos2022conformance}. These studies establish the importance of rule-based and structural analysis. Checkov, KICS, and Trivy provide established scanning approaches~\cite{checkov,kics,trivy}, while Minna et al.~\cite{minna2026automated} examine policy analysis for Helm charts. Related cloud-forensics work provides adjacent security context~\cite{sukumar2026forensics}, but it addresses a different evidence and operational setting from Terraform or CloudFormation policy-instance analysis. CloudGuard does not claim that existing tools lack evidence, severity, or remediation features; its narrower contribution is to combine a particular set of traceable records and local review steps for AWS Terraform and CloudFormation, then test that workflow on a small, auditable policy-instance benchmark.
 
 \section{Proposed Method}
 \subsection{Scope and Evidence Boundary}
@@ -345,24 +345,23 @@ CloudGuard is a compact AWS IaC analyzer for local review of selected Terraform 
 \section*{Acknowledgment}
 The authors thank Dr. T. Sukumar for project guidance and Mohan Babu University for providing the academic setting in which this prototype was developed. The authors received no external funding for the work reported in this paper.
 
-\begin{thebibliography}{17}
+\begin{thebibliography}{16}
+\bibitem{checkov} Bridgecrew, ``Checkov Documentation,'' \url{https://www.checkov.io/}.
+\bibitem{kics} Checkmarx, ``KICS Documentation,'' \url{https://docs.kics.io/}.
+\bibitem{trivy} Aqua Security, ``Trivy Documentation,'' \url{https://trivy.dev/}.
 \bibitem{minna2026automated} F.~Minna, A.~Blaise, K.~Tuma, and F.~Massacci, ``Automated analysis of security policy violations in Helm charts,'' \emph{IEEE Trans. Dependable and Secure Computing}, vol.~23, no.~2, pp. 2519--2533, 2026, doi: 10.1109/TDSC.2025.3628213.
 \bibitem{chiari2022survey} M.~Chiari, M.~De Pascalis, and M.~Pradella, ``Static analysis of infrastructure as code: A survey,'' in \emph{Proc. IEEE Int. Conf. Software Architecture Companion}, 2022, doi: 10.1109/ICSA-C54293.2022.00049.
 \bibitem{rahman2019sins} A.~Rahman, C.~Parnin, and L.~Williams, ``The seven sins: Security smells in infrastructure as code scripts,'' in \emph{Proc. IEEE/ACM 41st Int. Conf. Software Engineering}, 2019, pp. 164--175, doi: 10.1109/ICSE.2019.00033.
 \bibitem{dai2020risky} T.~Dai, A.~Karve, G.~Koper, and S.~Zeng, ``Automatically detecting risky scripts in infrastructure code,'' in \emph{Proc. ACM Symp. Cloud Computing}, 2020, pp. 358--371, doi: 10.1145/3419111.3421303.
 \bibitem{ntentos2022conformance} E.~Ntentos, U.~Zdun, G.~Falazi, U.~Breitenbücher, and F.~Leymann, ``Assessing architecture conformance to security-related practices in infrastructure as code based deployments,'' in \emph{Proc. IEEE Int. Conf. Services Computing}, 2022, pp. 123--133, doi: 10.1109/SCC55611.2022.00029.
+\bibitem{sukumar2026forensics} T.~Sukumar, R.~Pitchandi, K.~Saiteja, K.~Padmavathi, K.~Himakar, and K.~Rohit, ``AI-assisted conflict resolution framework for consumer-centric cloud forensics,'' in \emph{Proc. 2026 7th Int. Conf. Intelligent Communication Technologies and Virtual Mobile Networks (ICICV)}, 2026, pp. 1804--1811, doi: 10.1109/ICICV68925.2026.11554582.
+\bibitem{terraform} HashiCorp, ``Terraform Language Documentation,'' \url{https://developer.hashicorp.com/terraform/language}.
+\bibitem{cloudformation} Amazon Web Services, ``AWS CloudFormation User Guide,'' \url{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html}.
 \bibitem{awswell} Amazon Web Services, ``AWS Well-Architected Framework: Security Pillar,'' \url{https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html}.
 \bibitem{s3public} Amazon Web Services, ``Blocking public access to your Amazon S3 storage,'' \url{https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html}.
 \bibitem{rdsnetwork} Amazon Web Services, ``Working with a DB instance in a VPC,'' \url{https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html}.
 \bibitem{sg-rules} Amazon Web Services, ``Security group rules for your VPC,'' \url{https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html}.
 \bibitem{iam-action} Amazon Web Services, ``IAM JSON policy elements: Action,'' \url{https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_action.html}.
-\bibitem{checkov} Bridgecrew, ``Checkov Documentation,'' \url{https://www.checkov.io/}.
-\bibitem{kics} Checkmarx, ``KICS Documentation,'' \url{https://docs.kics.io/}.
-\bibitem{trivy} Aqua Security, ``Trivy Documentation,'' \url{https://trivy.dev/}.
-\bibitem{terraform} HashiCorp, ``Terraform Language Documentation,'' \url{https://developer.hashicorp.com/terraform/language}.
-\bibitem{cloudformation} Amazon Web Services, ``AWS CloudFormation User Guide,'' \url{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html}.
-\bibitem{sukumar2026forensics} T.~Sukumar, R.~Pitchandi, K.~Saiteja, K.~Padmavathi, K.~Himakar, and K.~Rohit, ``AI-assisted conflict resolution framework for consumer-centric cloud forensics,'' in \emph{Proc. 7th Int. Conf. Intelligent Communication Technologies and Virtual Mobile Networks}, Francis Xavier Engineering College, Tirunelveli, India, May 2026, ISBN: 979-8-3195-2946-6.
-\bibitem{mishra2025pentest} N.~Mishra, P.~R.~Sahoo, A.~K.~Warad, P.~Praveen, T.~Sukumar, and D.~K.~Sahoo, ``AI-powered network pentesting sandbox,'' in \emph{Proc. 6th Int. Conf. Data Engineering and Communication Technology}, Bhubaneswar Engineering College, Bhubaneswar, India, Dec. 2025.
 \end{thebibliography}
 
 \end{document}
