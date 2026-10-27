@@ -77,15 +77,11 @@ Tirupati, Andhra Pradesh, India\\
 \maketitle
 
 \begin{abstract}
-Infrastructure as Code (IaC) makes cloud deployment repeatable, but it can also reproduce insecure settings. This paper presents CloudGuard, a browser-based analyzer for Terraform and AWS CloudFormation that helps reviewers trace selected configuration-policy violations before deployment. The prototype applies five deterministic text-pattern rules and presents policy identifiers, source evidence, severity, heuristic risk deductions, control references, remediation guidance, and a local policy gate. It supports repair previews for selected source patterns but does not deploy to AWS or claim general automatic repair.
-
-We evaluated CloudGuard on a project-team synthetic mutation benchmark of 50 manifests (25 Terraform and 25 CloudFormation) containing 70 labelled policy instances. The cases cover a potentially public Amazon S3 access-control-list setting, an enabled Amazon Relational Database Service public-access flag, unrestricted security-group ingress, wildcard identity and access management actions, and disabled database encryption. CloudGuard recorded 30 true positives, no false positives, no false negatives, and 40 true negatives, yielding precision, recall, and F1 scores of 1.0000. Ten local command-line batch scans had a median processing time of 180.761 ms and a nearest-rank 95th-percentile time of 234.185 ms. In a separate offline experiment, 30 positive synthetic cases passed structural and targeted-rule-absence checks after controlled source replacement.
-
-These findings are implementation sanity evidence on synthetic cases designed around the same rules, not evidence of production accuracy, generalization, calibrated risk prediction, semantic repair correctness, or deployment safety. The offline replacement checks do not measure browser repair quality. Energy use, sustainability, and developer usability were not measured.
+Infrastructure as Code (IaC) makes cloud deployment repeatable, but it can also reproduce insecure settings. This paper presents CloudGuard, a browser-based analyzer for Terraform and AWS CloudFormation that helps reviewers trace selected configuration-policy violations before deployment. The prototype applies five deterministic text-pattern rules and presents policy identifiers, source evidence, severity, heuristic risk deductions, control references, remediation guidance, and a local policy gate. It supports repair previews for selected source patterns but does not deploy to AWS or claim general automatic repair. We evaluated CloudGuard on a project-team synthetic mutation benchmark of 50 manifests (25 Terraform and 25 CloudFormation) containing 70 labelled policy instances. The cases cover a potentially public Amazon S3 access-control-list setting, an enabled Amazon Relational Database Service public-access flag, unrestricted security-group ingress, wildcard identity and access management actions, and disabled database encryption. CloudGuard recorded 30 true positives, no false positives, no false negatives, and 40 true negatives, yielding precision, recall, and F1 scores of 1.0000. Ten local command-line batch scans had a median processing time of 180.761 ms and a nearest-rank 95th-percentile time of 234.185 ms. In a separate offline experiment, 30 positive synthetic cases passed structural and targeted-rule-absence checks after controlled source replacement. These findings are implementation sanity evidence on synthetic cases designed around the same rules, not evidence of production accuracy, generalization, calibrated risk prediction, semantic repair correctness, or deployment safety. The offline replacement checks do not measure browser repair quality. Energy use, sustainability, and developer usability were not measured.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Infrastructure as Code, cloud security, policy violation detection, explainable risk, Terraform, CloudFormation.
+Infrastructure as Code, cloud security, policy violation detection, explainable risk, Terraform and CloudFormation.
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -161,7 +157,7 @@ Table~\ref{tab:policies} defines the complete policy surface evaluated in this p
 \draw[arrow] (input) -- (detect);
 \draw[arrow] (detect) -- (explain);
 \draw[arrow] (explain) -- (repair);
-\node[box, below=5pt of repair, fill=green!8] (rescan) {Re-scan\\repaired copy};
+\node[box, below=5pt of repair, fill=green!8] (rescan) {Re-scan current or\\repaired copy};
 \draw[arrow] (repair) -- (rescan);
 \draw[arrow] (rescan.east) -| (gate.south);
 \end{tikzpicture}
@@ -175,7 +171,7 @@ Architecturally, the browser prototype separates five logical responsibilities: 
 \subsection{Repair and Local Policy Controls}
 The implementation separates detection from change approval. For a limited set of source patterns, CloudGuard creates a controlled deterministic repair preview, re-scans the preview, and permits the user to download the repaired copy. Ambiguous access-control findings are not given invented replacements: the interface supplies copyable manual guidance for selecting an approved CIDR, security-group reference, or least-privilege IAM action set.
 
-The local policy gate evaluates the current findings against a user-selected severity threshold. A finding at or above the threshold produces \texttt{BLOCK}; otherwise the result is \texttt{ALLOW}. The repository exposes the same decision through a local gate script that could be wrapped by CI, but CI integration is not validated. The gate blocks a proposed configuration review; it does not deploy to AWS and does not replace native IaC validation.
+The local policy gate evaluates the findings from the selected source file or its re-scanned modified copy against a user-selected severity threshold. A finding at or above the threshold produces \texttt{BLOCK}; otherwise the result is \texttt{ALLOW}. The repository exposes the same decision through a local gate script that could be wrapped by CI, but CI integration is not validated. The gate blocks a proposed configuration review; it does not deploy to AWS and does not replace native IaC validation.
 
 A developer selects a source file, inspects findings and evidence, and uses the score and severity to prioritize review. A supported source pattern can produce a separate repair preview for re-scanning; ambiguous access-control changes stop at copyable guidance. The workflow is local and auditable, but it does not replace code review or deployment testing.
 
@@ -346,7 +342,7 @@ The package contains no human-participant study, production configurations, nati
 CloudGuard is a compact AWS IaC analyzer for local review of selected Terraform and CloudFormation conditions. It demonstrates stable policy identifiers, visible evidence, heuristic risk deductions, generated metrics, controlled remediation checks, and component sensitivity on a project-team synthetic benchmark. The results support regression testing and demonstration, not a production security guarantee. Future work should evaluate independently reviewed external configurations, validated semantic mappings across tools, native Terraform and CloudFormation validation, and measured developer or sustainability outcomes.
 
 \section*{Acknowledgment}
-The authors thank Dr. T. Sukumar for project guidance and Mohan Babu University for providing the academic setting in which this prototype was developed. The authors received no external funding for the work reported in this paper.
+The authors thank Mohan Babu University for providing the academic setting in which this prototype was developed. The authors received no external funding for the work reported in this paper.
 
 \begin{thebibliography}{15}
 \bibitem{checkov} Bridgecrew, ``Checkov Documentation,'' \url{https://www.checkov.io/}.
