@@ -126,17 +126,19 @@ Each finding retains a stable SID, source evidence, severity, heuristic deductio
 \caption{Implemented CloudGuard Policies and Deductions}
 \label{tab:policies}
 \scriptsize
-\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}p{0.36\columnwidth}Xcc}
+\setlength{\tabcolsep}{2.2pt}
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}p{0.30\columnwidth}>{\raggedright\arraybackslash}X>{\centering\arraybackslash}p{0.13\columnwidth}>{\centering\arraybackslash}p{0.09\columnwidth}}
 \toprule
 \textbf{Policy ID} & \textbf{Condition} & \textbf{Severity} & \textbf{Points}\\
 \midrule
-POL\_AWS\_S3\_PUBLIC & S3 public-ACL indicator & Critical & 28\\
-POL\_AWS\_RDS\_PUBLIC & RDS public-access flag enabled & Critical & 25\\
-POL\_AWS\_SG\_UNRESTRICTED & Unrestricted ingress-CIDR text pattern & High & 18\\
-POL\_AWS\_IAM\_WILDCARD & Wildcard IAM actions & High & 18\\
-POL\_AWS\_RDS\_ENCRYPTION & Disabled encryption & High & 14\\
+\shortstack[l]{\texttt{POL\_AWS\_S3\_}\\\texttt{PUBLIC}} & S3 public-ACL indicator & Critical & 28\\
+\shortstack[l]{\texttt{POL\_AWS\_RDS\_}\\\texttt{PUBLIC}} & RDS public-access flag enabled & Critical & 25\\
+\shortstack[l]{\texttt{POL\_AWS\_SG\_}\\\texttt{UNRESTRICTED}} & Unrestricted ingress-CIDR text pattern & High & 18\\
+\shortstack[l]{\texttt{POL\_AWS\_IAM\_}\\\texttt{WILDCARD}} & Wildcard IAM actions & High & 18\\
+\shortstack[l]{\texttt{POL\_AWS\_RDS\_}\\\texttt{ENCRYPTION}} & Disabled encryption & High & 14\\
 \bottomrule
 \end{tabularx}
+\setlength{\tabcolsep}{2.8pt}
 \end{table}
 Table~\ref{tab:policies} defines the complete policy surface evaluated in this paper. The fixed identifiers make the same five conditions traceable across the interface, benchmark labels, normalized scanner records, risk deductions, and remediation guidance. The points are heuristic prioritization weights, so their purpose is to order review attention rather than to estimate breach probability.
 
@@ -145,20 +147,20 @@ Table~\ref{tab:policies} defines the complete policy surface evaluated in this p
 \resizebox{\columnwidth}{!}{%
 \begin{tikzpicture}[
   node distance=3pt and 3pt,
-  box/.style={draw, rounded corners=2pt, align=center, minimum height=0.48cm, text width=1.32cm, font=\scriptsize, fill=blue!6},
-  rescan/.style={box, text width=1.55cm, fill=green!8},
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=0.48cm, text width=1.34cm, font=\scriptsize, fill=blue!6, inner xsep=2pt, inner ysep=2pt},
+  rescan/.style={box, text width=1.68cm, fill=green!8},
   decision/.style={draw, diamond, aspect=2.0, align=center, inner sep=1pt, font=\scriptsize, fill=orange!12},
   arrow/.style={-{Latex[length=1.5mm]}, thick}
 ]
-\node[box] (input) {Terraform /\\CloudFormation};
-\node[box, right=of input] (detect) {Policy\\detection};
-\node[box, right=of detect] (explain) {SID, severity,\\score, evidence};
-\node[box, right=of explain] (repair) {Repair preview\\or guidance};
+\node[box] (input) {Source\\file};
+\node[box, right=of input] (detect) {Policy\\rules};
+\node[box, right=of detect] (explain) {Finding, SID,\\evidence};
+\node[box, right=of explain] (repair) {Guidance or\\preview};
 \node[decision, right=of repair] (gate) {ALLOW /\\BLOCK};
 \draw[arrow] (input) -- (detect);
 \draw[arrow] (detect) -- (explain);
 \draw[arrow] (explain) -- (repair);
-\node[rescan, below=5pt of repair] (rescan) {Use current\\findings or\\re-scan modified\\copy};
+\node[rescan, below=5pt of repair] (rescan) {Current findings\\or re-scan\\modified copy};
 \draw[arrow] (repair) -- (rescan);
 \draw[arrow] (rescan.east) -| (gate.south);
 \end{tikzpicture}
@@ -264,14 +266,16 @@ ground-truth label is determined before scanner output is scored.
 \caption{Worked Example for Terraform File \texttt{tf\_006}. CG = CloudGuard; CKV = Checkov.}
 \label{tab:worked-example}
 \scriptsize
-\begin{tabularx}{\columnwidth}{lXccccc}
+\setlength{\tabcolsep}{1.8pt}
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}p{0.24\columnwidth}>{\raggedright\arraybackslash}p{0.28\columnwidth}>{\centering\arraybackslash}p{0.09\columnwidth}*{4}{>{\centering\arraybackslash}p{0.075\columnwidth}}}
 \toprule
-\textbf{Policy} & \textbf{Source condition} & \textbf{Truth} & \textbf{CG} & \textbf{CKV} & \textbf{KICS} & \textbf{Trivy}\\
+\shortstack[l]{\textbf{Policy}} & \shortstack[l]{\textbf{Source}\\\textbf{condition}} & \textbf{Truth} & \textbf{CG} & \textbf{CKV} & \textbf{KICS} & \textbf{Trivy}\\
 \midrule
 RDS public-access flag & \texttt{publicly\_accessible=true} & 1 & 1 & 1 & 1 & 1\\
 RDS encryption & \texttt{storage\_encrypted=true} & 0 & 0 & 0 & 0 & 0\\
 \bottomrule
 \end{tabularx}
+\setlength{\tabcolsep}{2.8pt}
 \end{table}
 Table~\ref{tab:worked-example} illustrates how the expected label is determined before scanner results are scored. The public RDS setting is a violation, while the enabled encryption setting is a safe value. The same policy-instance keys are then used to compare CloudGuard and the external scanners.
 
