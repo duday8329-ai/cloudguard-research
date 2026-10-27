@@ -96,6 +96,8 @@ The contributions are: (1) a traceable policy-instance representation for local 
 \section{Related Work}
 Prior IaC research has examined static-analysis methods~\cite{chiari2022survey}, recurring security smells~\cite{rahman2019sins}, detection of risky infrastructure scripts~\cite{dai2020risky}, and conformance to security-related architecture practices~\cite{ntentos2022conformance}. These studies provide context for CloudGuard's focused rule set. Checkov, KICS, and Trivy are used as scanner baselines~\cite{checkov,kics,trivy}; a comparison is reported only where a documented native rule matches the same policy condition and IaC format. CloudGuard's evaluation asks whether its finding records, local review flow, and mappings can be traced across a small synthetic benchmark. It does not claim that existing scanners lack comparable capabilities.
 
+Two studies from the supplied reference list address neighboring cloud-security concerns: authentication across cloud--fog--device IoT environments~\cite{sukumar2026keymgmt} and conflict resolution in consumer-centric cloud forensics~\cite{sukumar2026forensics}. These works examine authentication and forensic processes, whereas CloudGuard checks selected properties in infrastructure templates before deployment. They provide context only and are not treated as IaC-analysis baselines.
+
 \section{Proposed Method}
 \subsection{Scope and Evidence Boundary}
 CloudGuard supports Terraform and CloudFormation~\cite{terraform,cloudformation} only. It does not support Helm or Kubernetes, does not execute changes against AWS, and does not claim general automatic program repair. The selected file is read in the browser, matched against deterministic rules, and rendered as a report, repair preview, and local policy decision.
@@ -349,7 +351,7 @@ CloudGuard is a compact AWS IaC analyzer for local review of selected Terraform 
 \section*{Acknowledgment}
 The authors thank Mohan Babu University for providing the academic setting in which this prototype was developed. The authors received no external funding for the work reported in this paper.
 
-\begin{thebibliography}{15}
+\begin{thebibliography}{17}
 \bibitem{checkov} Bridgecrew, ``Checkov Documentation,'' \url{https://www.checkov.io/}.
 \bibitem{kics} Checkmarx, ``KICS Documentation,'' \url{https://docs.kics.io/}.
 \bibitem{trivy} Aqua Security, ``Trivy Documentation,'' \url{https://trivy.dev/}.
@@ -358,6 +360,8 @@ The authors thank Mohan Babu University for providing the academic setting in wh
 \bibitem{rahman2019sins} A.~Rahman, C.~Parnin, and L.~Williams, ``The seven sins: Security smells in infrastructure as code scripts,'' in \emph{Proc. IEEE/ACM 41st Int. Conf. Software Engineering}, 2019, pp. 164--175, doi: 10.1109/ICSE.2019.00033.
 \bibitem{dai2020risky} T.~Dai, A.~Karve, G.~Koper, and S.~Zeng, ``Automatically detecting risky scripts in infrastructure code,'' in \emph{Proc. ACM Symp. Cloud Computing}, 2020, pp. 358--371, doi: 10.1145/3419111.3421303.
 \bibitem{ntentos2022conformance} E.~Ntentos, U.~Zdun, G.~Falazi, U.~Breitenbücher, and F.~Leymann, ``Assessing architecture conformance to security-related practices in infrastructure as code based deployments,'' in \emph{Proc. IEEE Int. Conf. Services Computing}, 2022, pp. 123--133, doi: 10.1109/SCC55611.2022.00029.
+\bibitem{sukumar2026keymgmt} T.~Sukumar, C.~V.~Tharun, C.~Netaji, B.~V.~Kumar, and B.~P.~Sai, ``A robust key-management-based authentication scheme for cloud-fog-device frameworks in IoT,'' in \emph{Proc. 6th Int. Conf. Trends in Material Science and Inventive Materials (ICTMIM)}, 2026, pp. 1061--1065, doi: 10.1109/ICTMIM68190.2026.11507349.
+\bibitem{sukumar2026forensics} T.~Sukumar, R.~Pitchandi, K.~Saiteja, K.~Padmavathi, K.~Himakar, and K.~Rohit, ``AI-assisted conflict resolution framework for consumer-centric cloud forensics,'' in \emph{Proc. 7th Int. Conf. Intelligent Communication Technologies and Virtual Mobile Networks (ICICV)}, 2026, pp. 1804--1811, doi: 10.1109/ICICV68925.2026.11554582.
 \bibitem{terraform} HashiCorp, ``Terraform Language Documentation,'' \url{https://developer.hashicorp.com/terraform/language}.
 \bibitem{cloudformation} Amazon Web Services, ``AWS CloudFormation User Guide,'' \url{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html}.
 \bibitem{awswell} Amazon Web Services, ``AWS Well-Architected Framework: Security Pillar,'' \url{https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html}.
