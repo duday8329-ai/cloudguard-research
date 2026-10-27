@@ -89,12 +89,12 @@ Cloud infrastructure is increasingly declared in machine-readable configuration 
 
 CloudGuard addresses this traceability problem with a small, inspectable AWS IaC analyzer. Security scanners such as Checkov, KICS, and Trivy are commonly used for IaC security analysis~\cite{checkov,kics,trivy}. The prototype reads Terraform and CloudFormation files locally in the browser, applies five explicit rules, computes a transparent score from configured deductions, and displays remediation guidance. It is a capstone research artifact and demonstration, not a production cloud security service.
 
-Minna et al.~\cite{minna2026automated} investigated inconsistent security-policy analysis and policy mapping across analyzers for Helm charts in Kubernetes environments. CloudGuard studies the related traceability problem for AWS Terraform and CloudFormation, without implementing Helm or Kubernetes support.
+Minna et al. examine security-policy analysis for Helm charts in Kubernetes~\cite{minna2026automated}. CloudGuard shares the focus on explicit policy conditions but targets AWS resources described in Terraform and CloudFormation; it does not implement Helm or Kubernetes support.
 
 The contributions are: (1) a traceable policy-instance representation for local AWS IaC review; (2) an explainable finding workflow that preserves policy ID, severity, source evidence, heuristic risk deductions, control reference, and remediation guidance; (3) a reproducible synthetic mutation benchmark and cross-tool normalization procedure for implementation sanity testing; and (4) controlled repair previews and local policy gating presented as supporting engineering controls rather than general repair claims. The objectives are limited to detecting five selected conditions, preserving this evidence chain, regenerating the retained benchmark metrics, and supporting cautious local review.
 
 \section{Related Work}
-CloudGuard is positioned among infrastructure-analysis tools and cloud security guidance rather than as a replacement for them. Prior work has surveyed IaC static analysis~\cite{chiari2022survey}, catalogued security smells~\cite{rahman2019sins}, studied risky infrastructure scripts~\cite{dai2020risky}, and examined architecture-level security practices~\cite{ntentos2022conformance}. These studies establish the importance of rule-based and structural analysis. Checkov, KICS, and Trivy provide established scanning approaches~\cite{checkov,kics,trivy}, while Minna et al.~\cite{minna2026automated} examine policy analysis for Helm charts. Related cloud-forensics research also highlights the value of preserving evidence during cloud investigations~\cite{sukumar2026forensics}; CloudGuard applies a narrower, pre-deployment evidence workflow to Terraform and CloudFormation source files. CloudGuard does not claim that existing tools lack evidence, severity, or remediation features; its contribution is to combine a particular set of traceable records and local review steps, then test that workflow on a small, auditable policy-instance benchmark.
+Prior IaC research has examined static-analysis methods~\cite{chiari2022survey}, recurring security smells~\cite{rahman2019sins}, detection of risky infrastructure scripts~\cite{dai2020risky}, and conformance to security-related architecture practices~\cite{ntentos2022conformance}. These studies provide context for CloudGuard's focused rule set. Checkov, KICS, and Trivy are used as scanner baselines~\cite{checkov,kics,trivy}; a comparison is reported only where a documented native rule matches the same policy condition and IaC format. CloudGuard's evaluation asks whether its finding records, local review flow, and mappings can be traced across a small synthetic benchmark. It does not claim that existing scanners lack comparable capabilities.
 
 \section{Proposed Method}
 \subsection{Scope and Evidence Boundary}
@@ -105,7 +105,7 @@ The evaluation is intentionally framed as an implementation study. It checks whe
 CloudGuard does not treat a similar rule name as proof of equivalence with another scanner. A comparison is made only when a native rule's documented condition matches a CloudGuard predicate for the same resource and format. This semantic mapping is retained as an auditable record and is later used to calculate coverage and mapped metrics separately.
 
 \subsection{System Design}
-The user selects a \texttt{.tf}, \texttt{.yaml}, \texttt{.yml}, or \texttt{.json} file, or loads the built-in vulnerable sample. The browser places the text in the editor. Matching rules become finding records. The renderer displays a report, a 0--100 score, remediation recommendations, a repair preview when a safe transformation is available, and a configurable local policy decision. No cloud credentials or deployment operation is required.
+The user selects a \texttt{.tf}, \texttt{.yaml}, \texttt{.yml}, or \texttt{.json} file, or loads the built-in vulnerable sample. The browser places the text in the editor, and matching rules become finding records. The report shows the findings, a 0--100 heuristic score, remediation guidance, a repair preview for supported source patterns, and a configurable local policy decision. The analysis runs locally in the browser and requires no cloud credentials.
 
 The implementation defines five policy conditions: POL\_AWS\_S3\_PUBLIC, POL\_AWS\_RDS\_PUBLIC, POL\_AWS\_SG\_UNRESTRICTED, POL\_AWS\_IAM\_WILDCARD, and POL\_AWS\_RDS\_ENCRYPTION. The selected controls are aligned with AWS security guidance~\cite{awswell,s3public,rdsnetwork,sg-rules,iam-action}. The score begins at 100 and subtracts 28, 25, 18, 18, and 14 points for these findings, respectively. These deductions are CloudGuard-defined heuristic weights selected to provide transparent relative prioritization; they are not calibrated probabilities of compromise.
 
@@ -267,7 +267,7 @@ ground-truth label is determined before scanner output is scored.
 \label{tab:worked-example}
 \scriptsize
 \setlength{\tabcolsep}{1.8pt}
-\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}p{0.23\columnwidth}>{\raggedright\arraybackslash}p{0.29\columnwidth}>{\centering\arraybackslash}p{0.09\columnwidth}*{4}{>{\centering\arraybackslash}p{0.075\columnwidth}}}
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}p{0.24\columnwidth}>{\raggedright\arraybackslash}X>{\centering\arraybackslash}p{0.07\columnwidth}*{4}{>{\centering\arraybackslash}p{0.06\columnwidth}}}
 \toprule
 \shortstack[l]{\textbf{Policy}} & \shortstack[l]{\textbf{Source}\\\textbf{condition}} & \textbf{Truth} & \textbf{CG} & \textbf{CKV} & \textbf{KICS} & \textbf{Trivy}\\
 \midrule
@@ -349,7 +349,7 @@ CloudGuard is a compact AWS IaC analyzer for local review of selected Terraform 
 \section*{Acknowledgment}
 The authors thank Mohan Babu University for providing the academic setting in which this prototype was developed. The authors received no external funding for the work reported in this paper.
 
-\begin{thebibliography}{16}
+\begin{thebibliography}{15}
 \bibitem{checkov} Bridgecrew, ``Checkov Documentation,'' \url{https://www.checkov.io/}.
 \bibitem{kics} Checkmarx, ``KICS Documentation,'' \url{https://docs.kics.io/}.
 \bibitem{trivy} Aqua Security, ``Trivy Documentation,'' \url{https://trivy.dev/}.
@@ -358,7 +358,6 @@ The authors thank Mohan Babu University for providing the academic setting in wh
 \bibitem{rahman2019sins} A.~Rahman, C.~Parnin, and L.~Williams, ``The seven sins: Security smells in infrastructure as code scripts,'' in \emph{Proc. IEEE/ACM 41st Int. Conf. Software Engineering}, 2019, pp. 164--175, doi: 10.1109/ICSE.2019.00033.
 \bibitem{dai2020risky} T.~Dai, A.~Karve, G.~Koper, and S.~Zeng, ``Automatically detecting risky scripts in infrastructure code,'' in \emph{Proc. ACM Symp. Cloud Computing}, 2020, pp. 358--371, doi: 10.1145/3419111.3421303.
 \bibitem{ntentos2022conformance} E.~Ntentos, U.~Zdun, G.~Falazi, U.~Breitenbücher, and F.~Leymann, ``Assessing architecture conformance to security-related practices in infrastructure as code based deployments,'' in \emph{Proc. IEEE Int. Conf. Services Computing}, 2022, pp. 123--133, doi: 10.1109/SCC55611.2022.00029.
-\bibitem{sukumar2026forensics} T.~Sukumar, R.~Pitchandi, K.~Saiteja, K.~Padmavathi, K.~Himakar, and K.~Rohit, ``AI-assisted conflict resolution framework for consumer-centric cloud forensics,'' in \emph{Proc. 2026 7th Int. Conf. Intelligent Communication Technologies and Virtual Mobile Networks (ICICV)}, 2026, pp. 1804--1811, doi: 10.1109/ICICV68925.2026.11554582.
 \bibitem{terraform} HashiCorp, ``Terraform Language Documentation,'' \url{https://developer.hashicorp.com/terraform/language}.
 \bibitem{cloudformation} Amazon Web Services, ``AWS CloudFormation User Guide,'' \url{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html}.
 \bibitem{awswell} Amazon Web Services, ``AWS Well-Architected Framework: Security Pillar,'' \url{https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html}.
