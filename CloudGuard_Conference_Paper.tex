@@ -146,6 +146,7 @@ Table~\ref{tab:policies} defines the complete policy surface evaluated in this p
 \begin{tikzpicture}[
   node distance=3pt and 3pt,
   box/.style={draw, rounded corners=2pt, align=center, minimum height=0.48cm, text width=1.32cm, font=\scriptsize, fill=blue!6},
+  rescan/.style={box, text width=1.55cm, fill=green!8},
   decision/.style={draw, diamond, aspect=2.0, align=center, inner sep=1pt, font=\scriptsize, fill=orange!12},
   arrow/.style={-{Latex[length=1.5mm]}, thick}
 ]
@@ -157,7 +158,7 @@ Table~\ref{tab:policies} defines the complete policy surface evaluated in this p
 \draw[arrow] (input) -- (detect);
 \draw[arrow] (detect) -- (explain);
 \draw[arrow] (explain) -- (repair);
-\node[box, below=5pt of repair, fill=green!8] (rescan) {Use current findings\\or re-scan modified copy};
+\node[rescan, below=5pt of repair] (rescan) {Use current\\findings or\\re-scan modified\\copy};
 \draw[arrow] (repair) -- (rescan);
 \draw[arrow] (rescan.east) -| (gate.south);
 \end{tikzpicture}
